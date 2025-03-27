@@ -6,24 +6,27 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import i18n, { setLocale } from '@/i18n';
+import { LazyImage } from 'vue-company-lib';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => {
-        const page = resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'));
-        return page;
+        return resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'));
     },
     setup({ el, App, props, plugin }) {
         const currentLocale = props.initialPage.props.currentLocale || 'fr';
         setLocale(currentLocale);
 
-        return createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(i18n)
-            .use(ZiggyVue)
-            .mount(el);
+            .use(ZiggyVue);
+
+        app.component('LazyImage', LazyImage);
+
+        app.mount(el);
     },
     progress: {
         color: '#4B5563',
