@@ -1,8 +1,8 @@
 <template>
-    <section class="relative w-full lg:h-[500px] md:h-72 h-80 overflow-hidden">
+    <section class="relative w-full lg:h-[500px] md:h-72 h-90 overflow-hidden">
         <div class="absolute inset-0 w-full h-full">
             <transition name="fade" mode="out-in">
-                <img
+                <LazyImage
                     :src="slides[currentSlide].image"
                     :alt="slides[currentSlide].alt"
                     class="w-full h-full object-cover"
@@ -21,7 +21,7 @@
         </div>
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
             <button
-                v-for="(slide, index) in slides"
+                v-for="(index) in slides"
                 :key="index"
                 class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100"
                 :class="{ 'bg-gray-300': index === currentSlide }"
@@ -43,7 +43,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-
 const slides = ref([
     {
         image: 'https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg',
