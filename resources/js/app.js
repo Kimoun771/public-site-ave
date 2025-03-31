@@ -6,29 +6,35 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import i18n, { setLocale } from '@/i18n';
-import { LazyImage } from 'vue-company-lib';
+import { install as VueCompanyLib } from 'vue-company-lib';
+import PrimeVue from 'primevue/config';
+import Aura from '@primeuix/themes/aura';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title}`,
     resolve: (name) => {
-        return resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'));
+        const page = resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue'));
+        return page;
     },
     setup({ el, App, props, plugin }) {
         const currentLocale = props.initialPage.props.currentLocale || 'fr';
         setLocale(currentLocale);
 
-        const app = createApp({ render: () => h(App, props) })
+        return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(i18n)
-            .use(ZiggyVue);
-
-        app.component('LazyImage', LazyImage);
-
-        app.mount(el);
+            .use(ZiggyVue)
+            .use(PrimeVue)
+            .use(VueCompanyLib)
+            .mount(el);
     },
     progress: {
         color: '#4B5563',
     },
+    theme:{
+        preset: Aura
+    }
 });

@@ -1,37 +1,41 @@
 <template>
-        <swiper
-            :slides-per-view="2"
-            :space-between="30"
-            :loop="true"
-            :autoplay="{ delay: 3000, disableOnInteraction: false }"
-            :breakpoints="{
-                640: { slidesPerView: 5 },
-                768: { slidesPerView: 5 },
-                1024: { slidesPerView: 5 }
-            }"
-            class="mySwiper"
+    <div class="card">
+        <Carousel
+            :value="clients"
+            :numVisible="5"
+            :numScroll="1"
+            :responsiveOptions="responsiveOptions"
+            circular
+            :autoplayInterval="3000"
         >
-            <swiper-slide v-for="(client, index) in clients" :key="index">
+            <template #item="slotProps">
                 <div class="w-24 md:w-28 lg:w-32 flex items-center justify-center">
-                    <LazyImage
-                        :src="client.logo"
-                        :alt="client.name || 'Client logo'"
+                    <img
+                        :src="slotProps.data.logo"
+                        :alt="slotProps.data.name || 'Client logo'"
                         class="h-12 object-contain transition-all duration-300 hover:scale-110"
                     />
                 </div>
-            </swiper-slide>
-        </swiper>
+            </template>
+        </Carousel>
+    </div>
 </template>
 
-<script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/autoplay";
+<script setup>
+import { ref } from 'vue';
+import Carousel from 'primevue/carousel';
 
-    const props = defineProps({
-        clients:{
-            type : Array,
-            default : () =>([])
-        }
-    })
+defineProps({
+    clients: {
+        type: Array,
+        required: true
+    }
+});
+
+const responsiveOptions = ref([
+    { breakpoint: '1024px', numVisible: 5, numScroll: 1 },
+    { breakpoint: '768px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '640px', numVisible: 3, numScroll: 1 },
+    { breakpoint: '480px', numVisible: 3, numScroll: 1 }
+]);
 </script>
