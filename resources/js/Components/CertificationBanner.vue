@@ -47,10 +47,4 @@ const props = defineProps({
         required: true
     }
 });
-const emit = defineEmits<{
-    (event: "contact"): void;
-}>();
-const onContactClick = () => {
-    emit("contact");
-};
 </script>
