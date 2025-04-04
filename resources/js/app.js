@@ -8,9 +8,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import i18n, { setLocale } from '@/i18n';
 import { install as VueCompanyLib } from 'vue-company-lib';
 import PrimeVue from 'primevue/config';
-import Aura from '@primeuix/themes/aura';
-
-
+import ToastService from 'primevue/toastservice';
+import Noir from './presets/Noir'
 
 
 createInertiaApp({
@@ -27,14 +26,21 @@ createInertiaApp({
             .use(plugin)
             .use(i18n)
             .use(ZiggyVue)
-            .use(PrimeVue)
+            .use(PrimeVue,{
+                theme: {
+                    preset: Noir,
+                    options: {
+                        prefix: 'p',
+                        darkModeSelector: 'system',
+                        cssLayer: false
+                    }
+                }
+            })
             .use(VueCompanyLib)
+            .use(ToastService)
             .mount(el);
     },
     progress: {
         color: '#4B5563',
     },
-    theme:{
-        preset: Aura
-    }
 });
