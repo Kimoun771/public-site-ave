@@ -1,12 +1,12 @@
 <template>
     <div
-        v-for="service in services"
-        :key="service.id"
+        v-for="(service,index) in services"
+        :key="index"
         class="rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-100"
     >
         <LazyImage
             :src="service.imageUrl"
-            :alt="`${service.title} service`"
+            :alt="service.title"
             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
         />
         <div class="p-4">
@@ -16,19 +16,16 @@
             <Paragraph class="text-sm mb-4">
                 {{ service.description }}
             </Paragraph>
-            <button
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
-            >
-               Read More
-            </button>
+            <Button @click="handleClick(service)" class="w-full bg-blue-600 hover:bg-blue-700 py-3" >Read More</Button>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, defineEmits  } from "vue";
 import Paragraph from "@/Components/Typography/Paragraph.vue";
 import Heading2 from "@/Components/Typography/Heading2.vue";
+import Button from '@/Components/Button.vue';
 interface Service {
     id: number;
     imageUrl: string;
@@ -40,4 +37,11 @@ defineProps<{
     title?: string;
     services: Service[];
 }>();
+const emit = defineEmits<{
+    (event: 'read-more', service: Service): void;
+}>();
+
+const handleClick = (service: Service) => {
+    emit('read-more', service);
+};
 </script>

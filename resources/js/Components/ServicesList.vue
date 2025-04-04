@@ -1,7 +1,7 @@
 <template>
     <div
-        v-for="service in services"
-        :key="service.id"
+        v-for="(service,index) in services"
+        :key="index"
         class="flex flex-col md:flex-row gap-6 items-start border-b pb-6"
     >
         <div class="w-full md:w-1/4 flex-shrink-0">
