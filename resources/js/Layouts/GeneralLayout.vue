@@ -22,26 +22,21 @@ defineProps({
 });
 
 const menuItems = ref([
-    { label: 'Home', link: "/" },
-    { label: 'Service', link: "/#service" },
-    { label: 'Inspection', link: "/#inspection" },
-    { label: 'Training', link: "/#training" },
-    { label: 'About', link: "/#about" },
-    {label: 'Contact', link: "/#contact"}
+    { label: 'Home', link: "/"},
+    { label: 'Service', link: "/service" },
+    { label: 'Inspection', link: "/inspection" },
+    { label: 'Training', link: "/training" },
+    { label: 'About', link: "/about" },
+    {label: 'Contact', link: "/contact"}
 ]);
-
-
-
 </script>
 
 <template>
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50" :dir="$page.props.dir">
         <div class="relative flex min-h-screen flex-col selection:bg-[#FF2D20] selection:text-white">
             <Header :menuItems="menuItems" :canLogin="canLogin" :canRegister="canRegister" />
-
-            <!-- Remove max-w-2xl and max-w-7xl -->
-            <div class="relative w-full px-6">
-                <main class="mt-6">
+            <div class="relative w-full">
+                <main>
                     <slot></slot>
                 </main>
                 <Footer :laravelVersion="laravelVersion" :phpVersion="phpVersion" :menuItems="menuItems" />
