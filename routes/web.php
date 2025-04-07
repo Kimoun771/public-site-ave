@@ -2,12 +2,9 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-//use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PageController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use Model\Service;
 
 Route::group(
     [
@@ -21,13 +18,29 @@ Route::group(
         Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
         Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 
-        // PageController routes
-        Route::get('/', [PageController::class, 'home'])->name('home');
-        Route::get('/service', [PageController::class, 'service'])->name('service');
-        Route::get('/inspection', [PageController::class, 'inspection'])->name('inspection');
-        Route::get('/training', [PageController::class, 'training'])->name('training');
-        Route::get('/about', [PageController::class, 'about'])->name('about');
-        Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+        Route::get('/', function () {
+            return Inertia::render('Home');
+        })->name('home');
+
+        Route::get('/service', function () {
+            return Inertia::render('Service');
+        })->name('service');
+
+        Route::get('/inspection', function () {
+            return Inertia::render('Inspection');
+        })->name('inspection');
+
+        Route::get('/training', function () {
+            return Inertia::render('Training');
+        })->name('training');
+
+        Route::get('/about', function () {
+            return Inertia::render('About');
+        })->name('about');
+
+        Route::get('/contact', function () {
+            return Inertia::render('Contact');
+        })->name('contact');
 
         // Dashboard route
         Route::get('/dashboard', function () {
