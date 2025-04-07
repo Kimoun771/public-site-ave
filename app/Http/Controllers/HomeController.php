@@ -13,7 +13,7 @@ class HomeController extends Controller
     {
         $posts = Post::latest()->take(3)->get();
         return Inertia::render('Welcome', [
-            'posts' => PostResource::collection($posts),    
+            'posts' => PostResource::collection($posts),
         ]);
     }
 }
