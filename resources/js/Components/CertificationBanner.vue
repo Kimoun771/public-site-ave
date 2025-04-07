@@ -36,15 +36,15 @@ import Paragraph from '@/Components/Typography/Paragraph.vue';
 const props = defineProps({
     title: {
         type: String,
-        required: true
+        default:""
     },
     subtitle: {
         type: String,
-        required: true
+        default:""
     },
     text: {
         type: String,
-        required: true
+        default:""
     }
 });
 </script>
