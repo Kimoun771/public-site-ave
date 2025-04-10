@@ -33,18 +33,6 @@
                                 {{ $page.props.auth.user.email }}
                             </div>
                         </div>
-                        <Link :href="route('dashboard')"
-                            class="p-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
-                        Dashboard
-                        </Link>
-                        <Link :href="route('profile.edit')"
-                            class="p-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
-                        Profile
-                        </Link>
-                        <Link :href="route('logout')" method="post" as="button"
-                            class="p-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left">
-                        Log Out
-                        </Link>
                     </div>
                 </nav>
             </div>
