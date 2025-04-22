@@ -1,10 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import ConsultingCard from '@/Components/ConsultingCard.vue'
 import TrainingCard from '@/Components/TrainingCard.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import HeroImage from '@/Components/HeroImage.vue';
-const trainingPrograms = [
+interface Program {
+  title: string;
+  description: string;
+  image: string;
+}
+const trainingPrograms: Program[] = [
     {
         title: "Software Development Bootcamp",
         description: "Learn full-stack development in 12 weeks.",
@@ -23,7 +28,7 @@ const trainingPrograms = [
     }
 ];
 
-const consultingServices = [
+const consultingServices: Program[] = [
 
     {
         title: "Cybersecurity Assessment",

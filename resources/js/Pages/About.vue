@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import Vision from '@/Components/Vision.vue';
 import WhoWeAre from '@/Components/WhoWeAre.vue';

@@ -1,11 +1,22 @@
 
-<script setup>
+<script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import ContactInfo from '@/Components/ContactInfo.vue';
 import { ref } from 'vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 
-const customCountries = ref([
+interface Country {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  workingHours: string;
+  mapUrl: string;
+}
+
+
+const customCountries = ref<Country[]>([
     {
         id: 'cambodia',
         name: 'Cambodia',
@@ -44,7 +55,7 @@ const customCountries = ref([
     }
 ]);
 
-const initialCountry = ref('cambodia');
+const initialCountry = ref<string>('indonesia');
 </script>
 <template>
     <GeneralLayout laravel-version="" php-version="">
