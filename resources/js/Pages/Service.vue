@@ -2,8 +2,7 @@
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import ServicesList from '@/Components/ServicesList.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
-import ServiceDetail from '@/Components/ServiceDetail.vue';
-// import HeroImage from '@/Components/HeroImage.vue';
+import HeroImage from '@/Components/HeroImage.vue';
 
 
 const serviceData = [
@@ -42,11 +41,11 @@ const serviceData = [
 
 <template>
     <GeneralLayout laravel-version="" php-version="">
-<!--        <HeroImage-->
-<!--            backgroundImage="https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg"-->
-<!--            title="Ensuring Quality & Compliance Through Expert Inspections!"-->
-<!--            description="We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements."-->
-<!--        />-->
+        <HeroImage
+            backgroundImage="https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg"
+            title="Ensuring Quality & Compliance Through Expert Inspections!"
+            description="We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements."
+        />
         <div class="container mx-auto px-2 py-8 lg:px-24">
             <Heading1 class="text-center mb-10">
                 Our Service
