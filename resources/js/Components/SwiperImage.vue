@@ -13,7 +13,7 @@
                     <img
                         :src="slotProps.data.logo"
                         :alt="slotProps.data.name || 'Client logo'"
-                        class="h-12 object-contain transition-all duration-300 hover:scale-110"
+                        class="h-16 md:h-24 lg:h-24 object-contain transition-all duration-300 hover:scale-110"
                     />
                 </div>
             </template>
@@ -33,7 +33,7 @@ defineProps({
 });
 
 const responsiveOptions = ref([
-    { breakpoint: '1024px', numVisible: 5, numScroll: 1 },
+    { breakpoint: '1024px', numVisible: 4, numScroll: 1 },
     { breakpoint: '768px', numVisible: 3, numScroll: 1 },
     { breakpoint: '640px', numVisible: 3, numScroll: 1 },
     { breakpoint: '480px', numVisible: 3, numScroll: 1 }
