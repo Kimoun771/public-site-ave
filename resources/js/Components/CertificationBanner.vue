@@ -19,7 +19,9 @@
                     <button
                         class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-8 rounded-full transition duration-300"
                     >
-                        Contact
+                        <Link href="/contact">
+                            Contact
+                        </Link>
                     </button>
                 </div>
             </div>
@@ -32,6 +34,7 @@
 import { defineProps } from "vue";
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
     title: {

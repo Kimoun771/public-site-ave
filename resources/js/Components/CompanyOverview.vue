@@ -17,10 +17,11 @@
                 </Paragraph>
 
                 <button
-                    @click="handleFindOutMore"
                     class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md transition-colors duration-300"
                 >
-                    Find Out More
+                    <Link href="/about" >
+                        Find Out More
+                    </Link>
                 </button>
             </div>
         </div>
@@ -31,6 +32,7 @@
 import { defineProps } from 'vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     title: {
