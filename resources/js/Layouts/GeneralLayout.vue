@@ -36,7 +36,7 @@ const menuItems = ref([
         <div class="relative flex min-h-screen flex-col selection:bg-[#FF2D20] selection:text-white">
             <Header :menuItems="menuItems" :canLogin="canLogin" :canRegister="canRegister" />
             <div class="relative w-full">
-                <main>
+                <main class="md:mt-24">
                     <slot></slot>
                 </main>
                 <Footer :laravelVersion="laravelVersion" :phpVersion="phpVersion" :menuItems="menuItems" />
