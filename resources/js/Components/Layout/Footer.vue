@@ -28,7 +28,10 @@
                         v-for="menu in menuItems"
                         :key="menu.label"
                         :href="menu.link"
-                        class="text-white text-center hover:text-gray-300 transition-colors duration-300"
+                        :class="[
+                            'text-center transition-colors duration-300',
+                            isActive(menu) ? 'text-blue-400 font-semibold' : 'text-white hover:text-gray-300'
+                        ]"
                     >
                         {{ menu.label }}
                     </Link>
@@ -50,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 
 interface MenuItem {
@@ -64,4 +67,14 @@ const props = defineProps({
         required: true
     }
 });
+
+const page = usePage();
+
+function isActive(menu: MenuItem): boolean {
+    const currentUrl = page.url.toLowerCase();
+    const currentLocale = page.props.currentLocale;
+    const strippedUrl = currentUrl.replace(new RegExp(`^/${currentLocale}`), '').replace(/^\/+/, '');
+    const menuPath = menu.link.toLowerCase().replace(/^\/+/, '');
+    return strippedUrl === menuPath;
+}
 </script>
