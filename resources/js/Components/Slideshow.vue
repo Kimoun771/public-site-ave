@@ -1,17 +1,17 @@
 <template>
-    <section class="relative w-full lg:h-[500px] md:h-72 h-90 overflow-hidden">
-        <div class="absolute inset-0 w-full h-full">
+    <section class="relative w-full h-[300px] md:h-[500px] lg:h-[500px] overflow-hidden mt-[80px]">
+    <div class="absolute inset-0 w-full h-full">
             <transition name="fade" mode="out-in">
                 <LazyImage
                     :src="slides[currentSlide].image"
                     :alt="slides[currentSlide].alt"
-                    class="w-full h-full object-cover"
+                    class="w-full h-full object-cover min-h-screen"
                     :key="slides[currentSlide].image"
                 />
             </transition>
             <div class="absolute inset-0 bg-black bg-opacity-30"></div>
         </div>
-        <div class="absolute left-8 top-1/2 transform -translate-y-1/2 z-10 max-w-xl text-left text-white text-sm">
+        <div class="absolute left-8 top-1/2 transform -translate-y-1/2 z-10 max-w-xl text-left text-white text-sm lg:px-24">
             <h1 class="font-bold leading-tight mb-4 text-xl md:text-xl lg:text-2xl">
                 {{ slides[currentSlide].heading }}
             </h1>

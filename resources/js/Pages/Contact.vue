@@ -4,6 +4,7 @@ import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import ContactInfo from '@/Components/ContactInfo.vue';
 import { ref } from 'vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
+import HeroImage from '@/Components/HeroImage.vue';
 
 interface Country {
   id: string;
@@ -14,6 +15,17 @@ interface Country {
   workingHours: string;
   mapUrl: string;
 }
+interface HeroImageProps {
+    backgroundImage: string;
+    title: string;
+    description: string;
+}
+
+const heroImage: HeroImageProps = {
+    backgroundImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp4BhG5evnQMl83nWgxnedsrlyWCt43NFpwg&s',
+    title: 'Get in Touch with Our Expert Team',
+    description: 'Whether you\'re looking for certification, training, or consulting—our team is here to guide you. Let\'s work together to build trust and meet your compliance goals.\n'
+};
 
 
 const customCountries = ref<Country[]>([
@@ -59,7 +71,12 @@ const initialCountry = ref<string>('indonesia');
 </script>
 <template>
     <GeneralLayout laravel-version="" php-version="">
-        <div class="mb-8">
+        <HeroImage
+            :background-image="heroImage.backgroundImage"
+            :title="heroImage.title"
+            :description="heroImage.description"
+        />
+        <div class="mb-8 py-6">
             <Heading1 class="text-center mb-8">Contact Us</Heading1>
             <div class="px-3">
                 <ContactInfo
