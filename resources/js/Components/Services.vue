@@ -22,17 +22,26 @@
                 icon=""
                 type="button"
                 text="Read More"
-                @click="() => handleClick"
+                @click="() => openModal(service)"
                 class="w-full"
             />
         </div>
     </div>
+    <template v-if="openModal">
+        <Popup
+            v-model="isModalOpen"
+            :title="selectedService?.title"
+            :des="selectedService?.description"
+            :image="selectedService?.imageUrl"
+        />
+    </template>
 </template>
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import { defineProps, ref } from "vue";
 import Paragraph from "@/Components/Typography/Paragraph.vue";
 import Heading2 from "@/Components/Typography/Heading2.vue";
 import Button from "@/Components/Common/Button.vue";
+import Popup from "@/Components/Popup.vue";
 
 interface Service {
     id: number;
@@ -46,15 +55,16 @@ defineProps<{
     services: Service[];
 }>();
 
-const emit = defineEmits<{
-    (event: 'read-more', service: Service): void;
-}>();
-
-const handleClick = (service: Service) => {
-    emit('read-more', service);
+const openModal  = (service: Service) => {
+    selectedService.value = service;
+    isModalOpen.value = true;
 };
 
 const truncate = (text: string, max: number) => {
     return text.length > max ? text.slice(0, max) + "..." : text;
 };
+
+const isModalOpen = ref(false);
+const selectedService = ref<Service | null>(null);
+
 </script>
