@@ -1,9 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import InspectionVerification from '@/Components/InspectionVerification.vue';
 import CertificateVerification from '@/Components/CertificateVerification.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
+import HeroImage from '@/Components/HeroImage.vue';
+
+interface HeroImageProps {
+    backgroundImage: string;
+    title: string;
+    description: string;
+}
+const heroImage: HeroImageProps = {
+    backgroundImage: 'https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg',
+    title: 'Ensuring Quality & Compliance Through Expert Inspections!',
+    description: 'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.'
+};
 const inspectionItems = [
     {
         category: "Factory Inspection",
@@ -33,7 +45,12 @@ const inspectionItems = [
 
 <template>
     <GeneralLayout laravel-version="11" php-version="">
-        <div class="container mx-auto px-4 py-6 lg:px-24">
+        <HeroImage
+            :background-image="heroImage.backgroundImage"
+            :title="heroImage.title"
+            :description="heroImage.description"
+        />
+        <div class="container mx-auto py-6 lg:px-24 md:px-8 sm:px-16 px-4">
             <Heading1 class="text-center mb-4">
                 Quality Assurance & Compliance
             </Heading1>
@@ -45,7 +62,8 @@ const inspectionItems = [
                 :items="inspectionItems"
             />
         </div>
+      <div class="mx-auto lg:px-20 md:px-8 sm:px-16 px-4 py-6">
         <CertificateVerification></CertificateVerification>
-        <br>
+      </div>
     </GeneralLayout>
 </template>

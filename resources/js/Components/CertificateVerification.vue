@@ -1,6 +1,6 @@
 <template>
     <Toast position="bottom-right" />
-    <div class="w-full flex justify-center lg:px-24 md:px-8">
+    <div class="w-full flex justify-center xl:px-6 lg:px-24 md:px-4">
         <div class="w-full max-w-8xl h-full bg-white shadow-lg rounded-lg grid lg:grid-cols-5 grid-cols-1">
             <div class="flex items-center justify-center lg:col-span-2 col-span-1 p-6 lg:p-8">
                 <div class="w-40 h-40 lg:w-80 lg:h-80 flex items-center justify-center">
