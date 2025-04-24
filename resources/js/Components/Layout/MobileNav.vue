@@ -1,4 +1,3 @@
-<!-- FILE: Components/MobileNav.vue -->
 <template>
     <div class="md:hidden">
         <button class="p-2 md:hidden relative z-10" @click.prevent="toggleMobileMenu">
@@ -16,24 +15,20 @@
             <div @click.stop v-show="showMobileMenu"
                  class="p-4 absolute inset-x-4 top-14 bg-white dark:bg-slate-900 rounded-xl shadow-lg">
                 <nav class="flex flex-col">
-                    <button v-for="menu in menuItems" :key="menu.label" v-text="menu.label"
-                            @click.prevent="redirect(menu.link)"
-                            class="p-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left" />
-                    <hr class="my-2 border-slate-200 dark:border-slate-700" />
-                    <Link class="p-4 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-left"
-                          :href="route('login')" v-if="canLogin && !$page.props.auth.user">
-                        Login
+                    <Link
+                        v-for="menu in menuItems"
+                        :key="menu.label"
+                        :href="menu.link"
+                        @click="showMobileMenu = false"
+                        :class="[
+                            'p-4 rounded-lg text-left transition-colors duration-300',
+                            isActive(menu)
+                                ? 'text-blue-600 dark:text-blue-400 bg-slate-100 dark:bg-slate-800'
+                                : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-black'
+                        ]"
+                    >
+                        {{ menu.label }}
                     </Link>
-                    <div class="flex flex-col gap-2" v-if="$page.props.auth.user">
-                        <div class="py-6 px-4">
-                            <div class="text-base font-medium text-gray-800 dark:text-gray-200">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="text-sm font-medium text-gray-500">
-                                {{ $page.props.auth.user.email }}
-                            </div>
-                        </div>
-                    </div>
                 </nav>
             </div>
         </Transition>
@@ -42,10 +37,9 @@
 
 <script setup>
 import { ref } from "vue"
+import { usePage, Link } from '@inertiajs/vue3'
 import IconBars from "@/Components/Icons/IconBars.vue"
 import IconX from "@/Components/Icons/IconX.vue"
-import { Link } from '@inertiajs/vue3';
-import Button from "../Button.vue";
 
 const props = defineProps({
     menuItems: {
@@ -58,13 +52,17 @@ const props = defineProps({
 })
 
 const showMobileMenu = ref(false)
+const page = usePage()
 
 function toggleMobileMenu() {
     showMobileMenu.value = !showMobileMenu.value
 }
 
-function redirect(link) {
-    showMobileMenu.value = false
-    window.location = link
+function isActive(menu) {
+    const currentUrl = page.url.toLowerCase()
+    const currentLocale = page.props.currentLocale
+    const strippedUrl = currentUrl.replace(new RegExp(`^/${currentLocale}`), '').replace(/^\/+/, '')
+    const menuPath = menu.link.toLowerCase().replace(/^\/+/, '')
+    return strippedUrl === menuPath
 }
 </script>
