@@ -11,6 +11,7 @@ import CertificationBanner from '@/Components/CertificationBanner.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
+import { Link } from '@inertiajs/vue3';
 const clients = ref([
     { name: 'Company 1', logo: 'https://www.en.cgti.com.my/assets/images/partner/ACM.png' },
     { name: 'Company 2', logo: 'https://www.en.cgti.com.my/assets/images/partner/unesco.png' },
@@ -140,6 +141,11 @@ const companyOverviewData = ref([
             </Heading1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:px-24">
                 <ServicesSection :services="servicesData" />
+            </div>
+            <div class=" flex justify-center underline text-black py-4">
+                <Link href="/service" >
+                    View All Service
+                </Link>
             </div>
         </div>
         <CertificationBanner title="Start Your Certification Journey" subtitle="Get certified with confidence!"
