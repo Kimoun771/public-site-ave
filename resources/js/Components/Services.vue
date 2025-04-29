@@ -11,9 +11,9 @@
         />
         <div class="p-4 flex flex-col h-[210px] justify-between">
             <div>
-                <Heading2 class="text-center border-b pb-2 mb-3">
+                <Heading3 class="text-center border-b pb-2 mb-3">
                     {{ service.title }}
-                </Heading2>
+                </Heading3>
                 <Paragraph class="text-sm mb-4 line-clamp-3 text-justify">
                     {{ truncate(service.description, 150) }}
                 </Paragraph>
@@ -39,9 +39,9 @@
 <script setup lang="ts">
 import { defineProps, ref } from "vue";
 import Paragraph from "@/Components/Typography/Paragraph.vue";
-import Heading2 from "@/Components/Typography/Heading2.vue";
 import Button from "@/Components/Common/Button.vue";
 import Popup from "@/Components/Popup.vue";
+import Heading3 from '@/Components/Typography/Heading3.vue';
 
 interface Service {
     id: number;

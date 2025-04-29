@@ -103,7 +103,7 @@ const companyOverviewData = ref([
                     image-src="https://www.vecert.com/image/Vecert/service_marketing.jpg"
                     description="VE Cert is an independent inspection, verification and certification company which benchmarks international standards from time to time. We are constantly improving our services to exceed customers' and market's expectations in order to provide the BEST SERVICES in the market">
                 </CompanyOverview>
-                <div class="flex flex-wrap gap-4 justify-center p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 py-6">
                     <CardCompanyOverview
                         v-for="(item, index) in companyOverviewData"
                         :key="index"
