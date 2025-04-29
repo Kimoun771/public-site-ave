@@ -1,17 +1,17 @@
 <template>
-    <div class="px-6 md:px-4 lg:px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center min-h-[400px] md:min-h-[500px] lg:min-h-[600px] w-full">
-        <div class="w-full flex">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 items-center min-h-[400px] md:min-h-[300px] lg:min-h-[350px] w-full">
+        <div class="w-full flex justify-center items-center">
             <LazyImage
                 :src="img"
                 :alt="imageAlt"
-                class="flex w-full rounded-lg"
+                class="flex w-full rounded-lg "
             />
         </div>
-        <div class="flex flex-col items-center text-center">
+        <div class="flex flex-col items-center text-center lg:px-4">
             <Heading1 class="mb-4">
                 {{ title }}
             </Heading1>
-            <Paragraph class="text-base md:text-lg lg:text-xl leading-relaxed max-w-[600px]">
+            <Paragraph class="text-base md:text-lg lg:text-xl leading-relaxed max-w-[700px]">
                 {{ description }}
             </Paragraph>
         </div>

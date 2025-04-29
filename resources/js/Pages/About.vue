@@ -48,16 +48,13 @@ const whoWeAreSection: SectionProps = {
     />
     <Heading1 class="text-center mt-10">Welcome to About Page</Heading1>
 
-    <div class="lg:px-24">
+    <div class="lg:px-24 md:px-4 px-6 lg:py-4">
       <Vision
         :img="visionSection.img"
         :title="visionSection.title"
         :imageAlt="visionSection.imageAlt"
         :description="visionSection.description"
       />
-    </div>
-
-    <div class="lg:px-24">
       <WhoWeAre
         :img="whoWeAreSection.img"
         :title="whoWeAreSection.title"
