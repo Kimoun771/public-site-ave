@@ -26,20 +26,31 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__('user.name'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label(__('user.email'))
                     ->email()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                    ->unique(ignoreRecord: true)
+                    ->live(onBlur: true)
+                    ->validationAttribute('Email address'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->label(__('user.email_verified_at')),
+
                 Password::make('password')
-                ->regeneratePassword()
-                ->copyable()
-                ->newPasswordLength(8)
-                ->revealable(true)
-                ->label('Renew password (leave empty to keep the current one)'),
-                    Select::make('roles')->multiple()->relationship('roles', 'name')->preload(),
+                    ->label(__('user.password'))
+                    ->regeneratePassword()
+                    ->copyable()
+                    ->newPasswordLength(8)
+                    ->revealable(true),
+
+                Select::make('roles')
+                    ->label(__('user.roles'))
+                    ->multiple()
+                    ->relationship('roles', 'name')
+                    ->preload(),
             ]);
     }
 
@@ -48,21 +59,27 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('user.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(__('user.email'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
+                    ->label(__('user.email_verified_at'))
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_at')
+                    ->label(__('user.deleted_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label(__('user.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label(__('user.updated_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -73,6 +90,7 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
