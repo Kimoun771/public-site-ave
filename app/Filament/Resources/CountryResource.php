@@ -28,12 +28,6 @@ class CountryResource extends Resource
     {
         return __('country.title');
     }
-
-    public static function getPluralModelLabel(): string
-    {
-        return __('country.plural');
-    }
-
     public static function getNavigationLabel(): string
     {
         return __('country.plural');
@@ -61,7 +55,16 @@ class CountryResource extends Resource
                 Tables\Columns\TextColumn::make('code')
                     ->label(__('country.code'))
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(function ($state) {
+                        return $state
+                            ? '<div class="flex items-center gap-2">
+                    <img src="https://flagcdn.com/w40/' . strtolower($state) . '.png" class="w-5 h-4 rounded shadow" alt="' . $state . '">
+                    <span>' . strtoupper($state) . '</span>
+               </div>'
+                            : '-';
+                    })
+                    ->html(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('country.created_at'))
                     ->dateTime()

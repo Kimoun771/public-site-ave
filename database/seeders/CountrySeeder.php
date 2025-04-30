@@ -170,7 +170,9 @@ class CountrySeeder extends Seeder
         foreach ($countries as $country) {
             Country::updateOrCreate(
                 ['name' => $country['name']],
-                ['code' => $country['code']]
+                ['code' => $country['code'], 'flag_url' => 'https://flagcdn.com/w40/' . strtolower($country['code']) . '.png'
+                ],
+
             );
         }
     }
