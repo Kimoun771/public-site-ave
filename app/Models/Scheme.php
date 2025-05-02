@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Scheme extends Model
+{
+    protected $fillable = ['name', 'description'];
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
+}

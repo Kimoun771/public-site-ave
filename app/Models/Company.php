@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,8 +7,8 @@ class Company extends Model
 {
     protected $fillable = [
         'name',
-        'scheme',
-        'scope',
+        'scheme_id',
+        'scope_id',
         'address',
         'country_id',
     ];
@@ -17,6 +16,16 @@ class Company extends Model
     public function country(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function scheme(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Scheme::class);
+    }
+
+    public function scope(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Scope::class);
     }
 
     public function certificates(): \Illuminate\Database\Eloquent\Relations\HasMany
