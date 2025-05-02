@@ -37,20 +37,44 @@ class CompanyResource extends Resource
                 Section::make(__('company.company_information'))
                     ->schema([
                         Grid::make(2)->schema([
-                            TextInput::make('name')->label(__('company.company_name'))->required(),
-                            TextInput::make('scheme')->label(__('company.scheme')),
+                            TextInput::make('name')->label(__('company.company_name'))->required()->maxLength(255),
+                            Select::make('scheme_id')
+                                ->label(__('company.scheme'))
+                                ->relationship('scheme', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->required()
+                                ->createOptionForm([
+                                    TextInput::make('name')->label(__('company.name_scheme'))->required(),
+                                    Textarea::make('description')->label(__('company.description_scheme')),
+                                ])
+                                ->createOptionAction(function (\Filament\Forms\Components\Actions\Action $action) {
+                                    return $action->label(__('company.add_new_scheme'));
+                                })
                         ]),
-                        Textarea::make('scope')->label(__('company.scope')),
-                        Textarea::make('address')->label(__('company.address')),
-                        Select::make('country_id')
-                            ->label(__('company.country'))
-                            ->relationship('country', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
-                    ])
-                    ->columns(1)
-                    ->collapsible(),
+                            Select::make('scope_id')
+                                ->label(__('company.scope'))
+                                ->relationship('scope', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->required()
+                                ->createOptionForm([
+                                    TextInput::make('name')->label(__('company.name_scope'))->required(),
+                                    Textarea::make('description')->label(__('company.description_scope')),
+                                ])
+                                ->createOptionAction(function(\Filament\Forms\Components\Actions\Action $action) {
+                                    return $action->label(__('company.add_new_scope'));
+                                }),
+                            Textarea::make('address')->label(__('company.address')),
+                            Select::make('country_id')
+                                ->label(__('company.country'))
+                                ->relationship('country', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->required(),
+                        ])
+                        ->columns(1)
+                        ->collapsible(),
             ]);
     }
     public static function table(Table $table): Table
@@ -59,11 +83,26 @@ class CompanyResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label(__('company.company_name'))
+                    ->wrap()
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('scheme.name')
+                    ->label(__('company.scheme'))
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('scope.name')
+                    ->label(__('company.scope'))
+                    ->limit(50)
+                    ->wrap()
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('address')
                     ->label(__('company.address'))
+                    ->limit(50)
+                    ->wrap()
                     ->sortable()
                     ->searchable(),
 
