@@ -9,7 +9,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -31,7 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
+                'gray' => Color::Slate
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -40,21 +40,16 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
-            ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
-            ])
             ->plugins([
                 FilamentTranslatableFieldsPlugin::make()
                     ->supportedLocales([
                         'en' => 'English',
-                        'es' => 'Spanish',
-                        'fr' => 'French',
+                        'kh' => 'Khmer',
                     ]),
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['en', 'es', 'fr']),
-                    FilamentTranslateFieldPlugin::make()
-               ->defaultLocales(['en', 'es', 'fr']),
+                    ->defaultLocales(['en', 'kh']),
+                FilamentTranslateFieldPlugin::make()
+                    ->defaultLocales(['en', 'kh']),
             ])
             ->middleware([
                 EncryptCookies::class,
