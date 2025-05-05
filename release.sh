@@ -7,7 +7,7 @@ current_folder=$(pwd)
 export local_project_path="$current_folder"
 export local_build_path="$current_folder/public/build"
 
-export project_path="/home/cbmedia/repositories/demo-ave-site"
+export project_path="/home/cbmedia/repositories/public-site-ave"
 
 export cpanel_php_path="/opt/cpanel/ea-php83/root/usr/bin/php"
 export cpanel_public_path="/home/cbmedia/public_html/ave.cbmedia-asia.com"
