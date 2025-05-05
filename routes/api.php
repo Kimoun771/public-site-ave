@@ -12,7 +12,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::post('/contactus', [ContactMessageController::class, 'store']);
 
-Route::apiResource('posts', PostController::class);
+Route::apiResource('api-posts', PostController::class);
 Route::apiResource('users', UserController::class);
 
 
