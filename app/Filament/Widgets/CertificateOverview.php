@@ -20,13 +20,6 @@ class CertificateOverview extends BaseWidget
                 ->url(route('filament.admin.resources.certificates.index', ['status' => 'Suspend']))
                 ->color('danger'),
 
-            Card::make(__('certificate_overview.expired'), Certificate::where('is_suspended', false)
-                ->whereNotNull('expire_date')
-                ->whereDate('expire_date', '<', now())
-                ->count())
-                ->url(route('filament.admin.resources.certificates.index', ['status' => 'Expired']))
-                ->color('warning'),
-
             Card::make(__('certificate_overview.valid'), Certificate::where('is_suspended', false)
                 ->where(function ($query) {
                     $query->whereNull('expire_date')

@@ -21,27 +21,21 @@ class CertificateStatusChart extends BarChartWidget
                     ->orWhere('expire_date', '>', Carbon::now());
             })->count();
 
-        $expiredCount = Certificate::where('is_suspended', false)
-            ->whereDate('expire_date', '<', Carbon::now())
-            ->count();
-
         $suspendedCount = Certificate::where('is_suspended', true)->count();
 
         return [
             'datasets' => [
                 [
                     'label' => __('certificate_status_chart.label'),
-                    'data' => [$validCount, $expiredCount, $suspendedCount],
+                    'data' => [$validCount, $suspendedCount],
                     'backgroundColor' => [
                         'rgba(34,197,94,0.7)',
-                        'rgba(251,191,36,0.7)',
                         'rgba(239,68,68,0.7)',
                     ],
                 ],
             ],
             'labels' => [
                 __('certificate_status_chart.valid'),
-                __('certificate_status_chart.expired'),
                 __('certificate_status_chart.suspended'),
             ],
         ];
