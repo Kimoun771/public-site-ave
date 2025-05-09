@@ -4,7 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CertificateResource\Pages;
 use App\Models\Certificate;
-use Filament\Forms;
+use Carbon\Carbon;
+use Filament\Forms\Get;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
@@ -12,7 +13,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -73,14 +74,27 @@ class CertificateResource extends Resource
                         ]),
                         Grid::make(2)->schema([
                             DatePicker::make('registration_date')
-                                ->label(__('certificate.registration_date')),
+                                ->label(__('certificate.registration_date'))
+                                ->reactive()
+                                ->afterStateUpdated(function (Get $get, Set $set) {
+                                    if (filled($get('registration_date'))) {
+                                        $set('expire_date', null);
+                                    }
+                                })
+                                ->hidden(fn (Get $get) => filled($get('expire_date')))
+                                ->dehydrated(fn (Get $get) => blank($get('expire_date'))),
 
                             DatePicker::make('expire_date')
-                                ->label(__('certificate.expire_date')),
+                                ->label(__('certificate.expire_date'))
+                                ->reactive()
+                                ->afterStateUpdated(function (Get $get, Set $set) {
+                                    if (filled($get('expire_date'))) {
+                                        $set('registration_date', null);
+                                    }
+                                })
+                                ->hidden(fn (Get $get) => filled($get('registration_date')))
+                                ->dehydrated(fn (Get $get) => blank($get('registration_date'))),
                         ]),
-
-                        Toggle::make('is_suspended')
-                            ->label(__('certificate.suspended')),
                     ])
                     ->columns(1)
                     ->collapsible(),
@@ -102,14 +116,28 @@ class CertificateResource extends Resource
                     ->wrap()
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('company.country.name')
+                    ->label(__('company.country'))
+                    ->sortable()
+                    ->searchable(),
 
                 TextColumn::make('registration_date')
                     ->label(__('certificate.registration_date'))
-                    ->date(),
+                    ->state(function ($record) {
+                        return $record->registration_date
+                            ? \Carbon\Carbon::parse($record->registration_date)->format('Y-m-d')
+                            : 'N/A';
+                    })
+                    ->toggleable(),
 
                 TextColumn::make('expire_date')
                     ->label(__('certificate.expire_date'))
-                    ->date(),
+                    ->state(function ($record) {
+                        return $record->expire_date
+                            ? \Carbon\Carbon::parse($record->expire_date)->format('Y-m-d')
+                            : 'N/A';
+                    })
+                    ->toggleable(),
 
                 TextColumn::make('company.scope.name')
                     ->label(__('certificate.scope'))
@@ -165,6 +193,13 @@ class CertificateResource extends Resource
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        Certificate::autoSuspendExpired();
+
+        return parent::getEloquentQuery();
     }
 
     public static function getRelations(): array

@@ -21,7 +21,7 @@ class Certificate extends Model
     ];
     public function company(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function getStatusAttribute()
@@ -35,6 +35,21 @@ class Certificate extends Model
         }
 
         return 'Valid';
+    }
+    public static function autoSuspendExpired(): void
+    {
+        static::where('is_suspended', false)
+            ->whereNotNull('expire_date')
+            ->whereDate('expire_date', '<', now())
+            ->update(['is_suspended' => true]);
+    }
+    protected static function booted()
+    {
+        static::saving(function (Certificate $certificate) {
+            if ($certificate->expire_date && $certificate->expire_date->isFuture()) {
+                $certificate->is_suspended = false;
+            }
+        });
     }
 
 }
