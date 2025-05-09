@@ -1,4 +1,12 @@
 <template>
+    <VerificationMessage
+        v-if="showMessage"
+        :responseData="responseData"
+        :closeModal="closeModal"
+        :responseMessage="responseMessage"
+        :responseStatus="responseStatus"
+        :showFormAlert="showFormAlert"
+    />
     <Toast position="bottom-right" />
     <div class="w-full flex justify-center xl:px-6 lg:px-24 md:px-4">
         <div class="w-full max-w-8xl h-full bg-white shadow-lg rounded-lg grid lg:grid-cols-5 grid-cols-1">
@@ -16,7 +24,7 @@
                 <div class="space-y-6 lg:space-y-8">
                     <div>
                         <label for="country" class="text-gray-600 text-lg lg:text-xl block mb-2">Country Name</label>
-                        <SelectLabel v-model="country" css-wrapper="w-full  py-1.5 px-4 lg:py-2 lg:px-2 " />
+                        <SelectLabel v-model="country" :countries="countries" css-wrapper="w-full  py-1.5 px-4 lg:py-2 lg:px-2 " />
                     </div>
                     <div>
                         <label for="certificate" class="text-gray-600 text-lg lg:text-xl block mb-2">Enter Certificate Number</label>
@@ -45,25 +53,22 @@ import Heading2 from '@/Components/Typography/Heading2.vue';
 import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import SelectLabel from '@/Components/SelectLabel.vue';
+import VerificationMessage from '@/Components/VerifyCertificateMessage.vue';
 export default {
     name: 'CertificateVerification',
-    components: { SelectLabel, Heading2, Toast },
+    components: { SelectLabel, Heading2, Toast, VerificationMessage },
+    props: {
+        countries: Array,
+    },
     data() {
         return {
-            country: "",
+            country: null,
+            responseMessage: '',
+            responseStatus: '',
+            showFormAlert: false,
+            responseData: {},
+            showMessage: false,
             certificateNumber: '',
-            countries: [
-                'United States',
-                'Canada',
-                'United Kingdom',
-                'Australia',
-                'Germany',
-                'France',
-                'Japan',
-                'China',
-                'India',
-                'Brazil'
-            ]
         };
     },
     setup() {
@@ -71,7 +76,8 @@ export default {
         return { toast };
     },
     methods: {
-        verifyNow() {
+        verifyNow(e) {
+            e.preventDefault();
             if (!this.country) {
                 this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please select a country', life: 3000 });
                 return;
@@ -80,11 +86,35 @@ export default {
                 this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please enter a certificate number', life: 3000 });
                 return;
             }
+            if (this.country && this.certificateNumber){
+                axios.post("/api/verify-certificate",
+                    {
+                        country: this.country,
+                        certificate_number: this.certificateNumber
+                    }
+                ).then((response) => {
+                    const data = response.data;
+                    if (data.success === false){
+                        this.showFormAlert = true;
+                        this.showMessage = true;
+                        this.responseMessage = response.data.message
+                        console.log(this.responseMessage);
+                    }
+                    if(data.success === true){
+                        this.showFormAlert = false;
+                        this.showMessage = true;
+                        this.responseData = data.certificate;
+                    }
+                });
+            }
             this.$emit('verify', {
                 country: this.country,
                 certificateNumber: this.certificateNumber
             });
-        }
+        },
+        closeModal() {
+            this.showMessage = false
+        },
     }
 };
 </script>

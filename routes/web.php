@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -26,9 +27,7 @@ Route::group(
             return Inertia::render('Service');
         })->name('service');
 
-        Route::get('/inspection', function () {
-            return Inertia::render('Inspection');
-        })->name('inspection');
+        Route::get('/inspection', [CountryController::class,'create'])->name('inspection');
 
         Route::get('/training', function () {
             return Inertia::render('Training');
