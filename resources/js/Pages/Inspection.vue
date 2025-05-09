@@ -5,6 +5,7 @@ import CertificateVerification from '@/Components/CertificateVerification.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import HeroImage from '@/Components/HeroImage.vue';
+import { defineProps } from 'vue';
 
 interface HeroImageProps {
     backgroundImage: string;
@@ -41,6 +42,12 @@ const inspectionItems = [
         imageUrl: "https://www.vecert.com/images/666656e611294_600w.jpg"
     }
 ];
+const props = defineProps({
+    countries:{
+        type : Array,
+        default: []
+    }
+})
 </script>
 
 <template>
@@ -63,7 +70,7 @@ const inspectionItems = [
             />
         </div>
       <div class="mx-auto lg:px-20 md:px-8 sm:px-16 px-4 py-6">
-        <CertificateVerification></CertificateVerification>
+        <CertificateVerification :countries="props.countries"></CertificateVerification>
       </div>
     </GeneralLayout>
 </template>
