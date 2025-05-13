@@ -15,28 +15,30 @@ class CertificateStatusChart extends BarChartWidget
 
     protected function getData(): array
     {
-        $validCount = Certificate::where('is_suspended', false)
-            ->where(function ($query) {
-                $query->whereNull('expire_date')
-                    ->orWhere('expire_date', '>', Carbon::now());
-            })->count();
+        $now = Carbon::now();
+        $validCount = Certificate::where(function ($query) use ($now) {
+            $query->whereNull('expire_date')
+                ->orWhere('expire_date', '>', $now);
+        })->count();
 
-        $suspendedCount = Certificate::where('is_suspended', true)->count();
-
+        $suspendedCount = Certificate::whereNotNull('expire_date')
+            ->where('expire_date', '<=', $now)
+            ->count();
         return [
+            'labels' => [
+                __('certificate_status_chart.label'),
+            ],
             'datasets' => [
                 [
-                    'label' => __('certificate_status_chart.label'),
-                    'data' => [$validCount, $suspendedCount],
-                    'backgroundColor' => [
-                        'rgba(34,197,94,0.7)',
-                        'rgba(239,68,68,0.7)',
-                    ],
+                    'label' => __('certificate_status_chart.valid'),
+                    'data' => [$validCount],
+                    'backgroundColor' => '#16a34f',
                 ],
-            ],
-            'labels' => [
-                __('certificate_status_chart.valid'),
-                __('certificate_status_chart.suspended'),
+                [
+                    'label' => __('certificate_status_chart.suspended'),
+                    'data' => [$suspendedCount],
+                    'backgroundColor' => '#c41019',
+                ],
             ],
         ];
     }
