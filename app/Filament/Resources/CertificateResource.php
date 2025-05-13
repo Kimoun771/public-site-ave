@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CertificateResource\Pages;
 use App\Models\Certificate;
+use App\Models\Company;
 use Carbon\Carbon;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Grid;
@@ -56,11 +57,47 @@ class CertificateResource extends Resource
                                 ->searchable()
                                 ->preload()
                                 ->required()
+                                ->getOptionLabelFromRecordUsing(fn ($record) =>
+                                "{$record->name} ({$record->country?->name})\n{$record->scope?->name}\n{$record->scheme?->name}"
+                                )
+                                ->getOptionLabelUsing(fn ($value): ?string =>
+                                \App\Models\Company::find($value)?->name
+                                )
+                                ->reactive()
                                 ->createOptionForm([
-                                    TextInput::make('name')->label(__('certificate.company_name'))->required()->maxLength(255),
-                                    TextInput::make('scheme')->label(__('certificate.scheme')),
-                                    Textarea::make('scope')->label(__('certificate.scope')),
-                                    Textarea::make('address')->label(__('certificate.address')),
+                                    TextInput::make('name')
+                                        ->label(__('certificate.company_name'))
+                                        ->required()
+                                        ->maxLength(255),
+                                    Select::make('scheme_id')
+                                        ->label(__('certificate.scheme'))
+                                        ->relationship('scheme', 'name')
+                                        ->required()
+                                        ->searchable()
+                                        ->preload()
+                                        ->createOptionForm([
+                                            TextInput::make('name')->label(__('company.name_scheme'))->required(),
+                                            Textarea::make('description')->label(__('company.description_scheme')),
+                                        ])
+                                        ->createOptionAction(function (\Filament\Forms\Components\Actions\Action $action) {
+                                            return $action->label(__('company.add_new_scheme'));
+                                        }),
+
+                                    Select::make('scope_id')
+                                        ->label(__('certificate.scope'))
+                                        ->relationship('scope', 'name')
+                                        ->required()
+                                        ->searchable()
+                                        ->preload()
+                                        ->createOptionForm([
+                                            TextInput::make('name')->label(__('company.name_scope'))->required(),
+                                            Textarea::make('description')->label(__('company.description_scope')),
+                                        ])
+                                        ->createOptionAction(function(\Filament\Forms\Components\Actions\Action $action) {
+                                            return $action->label(__('company.add_new_scope'));
+                                        }),
+                                    Textarea::make('address')
+                                        ->label(__('certificate.address')),
                                     Select::make('country_id')
                                         ->label(__('certificate.country'))
                                         ->relationship('country', 'name')
@@ -125,7 +162,7 @@ class CertificateResource extends Resource
                     ->label(__('certificate.registration_date'))
                     ->state(function ($record) {
                         return $record->registration_date
-                            ? \Carbon\Carbon::parse($record->registration_date)->format('Y-m-d')
+                            ? \Carbon\Carbon::parse($record->registration_date)->format('M-d-Y')
                             : 'N/A';
                     })
                     ->toggleable(),
@@ -134,7 +171,7 @@ class CertificateResource extends Resource
                     ->label(__('certificate.expire_date'))
                     ->state(function ($record) {
                         return $record->expire_date
-                            ? \Carbon\Carbon::parse($record->expire_date)->format('Y-m-d')
+                            ? \Carbon\Carbon::parse($record->expire_date)->format('M-d-Y')
                             : 'N/A';
                     })
                     ->toggleable(),
@@ -148,36 +185,31 @@ class CertificateResource extends Resource
 
                 TextColumn::make('status')
                     ->label(__('certificate.status'))
+                    ->state(function ($record) {
+                        return $record->expire_date && $record->expire_date <= now()
+                            ? 'Suspend'
+                            : 'Valid';
+                    })
                     ->badge()
-                    ->color(fn ($record) => match ($record->status) {
+                    ->color(fn ($state) => match ($state) {
                         'Suspend' => 'danger',
-                        'Expired' => 'warning',
-                        'Valid'   => 'success',
-                        default   => 'gray',
+                        'Valid' => 'success',
+                        default => 'gray',
                     }),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->label(__('certificate.status'))
                     ->options([
-                        'Valid' => __('certificate.valid'),
-                        'Expired' => __('certificate.expired'),
-                        'Suspend' => __('certificate.suspended'),
+                        'Valid'     => __('certificate.valid'),
+                        'Suspend'   => __('certificate.suspended'),
                     ])
                     ->default(fn () => request()->query('status'))
                     ->query(function (Builder $query, array $data) {
                         if (($data['value'] ?? null) === 'Valid') {
-                            $query->where('is_suspended', false)
-                                ->where(function ($query) {
-                                    $query->whereNull('expire_date')
-                                        ->orWhere('expire_date', '>', now());
-                                });
-                        } elseif (($data['value'] ?? null) === 'Expired') {
-                            $query->where('is_suspended', false)
-                                ->whereNotNull('expire_date')
-                                ->whereDate('expire_date', '<', now());
+                            $query->whereDate('expire_date', '>', now());
                         } elseif (($data['value'] ?? null) === 'Suspend') {
-                            $query->where('is_suspended', true);
+                            $query->whereDate('expire_date', '<=', now());
                         }
                     }),
             ])
@@ -197,8 +229,6 @@ class CertificateResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        Certificate::autoSuspendExpired();
-
         return parent::getEloquentQuery();
     }
 

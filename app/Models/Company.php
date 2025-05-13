@@ -32,4 +32,8 @@ class Company extends Model
     {
         return $this->hasMany(Certificate::class);
     }
+    public function getDisplayNameAttribute()
+    {
+        return "{$this->name} - {$this->scheme->name} - {$this->scope->name}";
+    }
 }
