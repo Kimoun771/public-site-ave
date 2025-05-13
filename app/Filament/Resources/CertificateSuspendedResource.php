@@ -3,12 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Models\Certificate;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\DeleteAction;
 
 class CertificateSuspendedResource extends Resource
 {
@@ -28,8 +28,9 @@ class CertificateSuspendedResource extends Resource
 
     public static function getPluralModelLabel(): string
     {
-        return __('certificate_suspended.plural');// Make it plural for better clarity
+        return __('certificate_suspended.plural');
     }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -45,36 +46,40 @@ class CertificateSuspendedResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('registration_date')
-                    ->label(__('certificate_suspended.registration_date'))
-                    ->date(),
+                    ->label(__('certificate.registration_date'))
+                    ->state(function ($record) {
+                        return $record->registration_date
+                            ? \Carbon\Carbon::parse($record->registration_date)->format('M-d-Y')
+                            : 'N/A';
+                    })
+                    ->toggleable(),
 
                 TextColumn::make('expire_date')
-                    ->label(__('certificate_suspended.expire_date'))
-                    ->date(),
+                    ->label(__('certificate.expire_date'))
+                    ->state(function ($record) {
+                        return $record->expire_date
+                            ? \Carbon\Carbon::parse($record->expire_date)->format('M-d-Y')
+                            : 'N/A';
+                    })
+                    ->toggleable(),
 
                 TextColumn::make('status')
                     ->label(__('certificate_suspended.status'))
                     ->badge()
                     ->color(fn ($record) => match ($record->status) {
                         'Suspend' => 'danger',
-                        'Expired' => 'warning',
                         'Valid' => 'success',
                         default => 'gray',
                     }),
             ])
-            ->filters([])
-            ->actions([
-                DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            ->filters([]);
     }
-
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('is_suspended', true); // Only fetch suspended certificates
+        return parent::getEloquentQuery()
+            ->whereNotNull('expire_date')
+            ->whereDate('expire_date', '<=', now());
     }
 
     public static function getRelations(): array
