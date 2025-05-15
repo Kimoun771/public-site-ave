@@ -39,22 +39,47 @@
             </div>
 
             <div class="col-span-1 sm:col-span-3 lg:col-span-3">
-                <form class="space-y-2 px-5">
+                <form  @submit.prevent="submitForm" class="space-y-2 px-5">
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input type="text" placeholder="Name" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
-                        <input type="email" placeholder="Email" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
+                        <input v-model="form.name" type="text" placeholder="Name" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
+                        <input v-model="form.email" type="email" placeholder="Email" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
                     </div>
-                    <textarea placeholder="Message" class="w-full px-3 py-2 bg-gray-100 text-black rounded h-24"></textarea>
-                    <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Submit</button>
+                    <textarea v-model="form.message" placeholder="Message" class="w-full px-3 py-2 bg-gray-100 text-black rounded h-24"></textarea>
+                    <RecaptchaV2
+                        sitekey="6Lc07KYqAAAAADiqjV51xn86JSAaMJubYTdCpWCc"
+                        @widget-id="handleWidgetId"
+                        @error-callback="handleErrorCallback"
+                        @expired-callback="handleExpiredCallback"
+                        @load-callback="handleLoadCallback"
+                    />
+                    <Button
+                        type="submit"
+                        :disabled="isLoading || !form.recaptcha" 
+                        unstyled 
+                        :pt="{ 
+                            root: { 
+                                class: `w-full bg-blue-500 text-white py-2 rounded items-center ${!(isLoading || !form.recaptcha) ? 'hover:bg-blue-600 cursor-pointer' : 'opacity-70 cursor-not-allowed'}` 
+                            } 
+                        }"
+                    >
+                        <i :class="isLoading ? 'pi pi-spinner pi-spin text-white text-xl mr-2' : 'pi pi-send text-white text-xl mr-2'"></i>
+                        <span class="text-white">Submit</span>
+                    </Button>
                 </form>
             </div>
         </div>
     </footer>
 </template>
 
+
+
 <script setup lang="ts">
 import { Link, usePage } from '@inertiajs/vue3';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
+import { ref } from 'vue';
+import { RecaptchaV2 } from "vue3-recaptcha-v2";
+import Button from 'primevue/button';
+import axios from 'axios';
 
 interface MenuItem {
     label: string;
@@ -69,6 +94,7 @@ const props = defineProps({
 });
 
 const page = usePage();
+const isLoading = ref(false);
 
 function isActive(menu: MenuItem): boolean {
     const currentUrl = page.url.toLowerCase();
@@ -77,4 +103,43 @@ function isActive(menu: MenuItem): boolean {
     const menuPath = menu.link.toLowerCase().replace(/^\/+/, '');
     return strippedUrl === menuPath;
 }
+
+const form = ref({
+    name: '',
+    email: '',
+    message: '',
+    recaptcha: null
+});
+
+const widgetId = ref<number | null>(null);
+
+const handleWidgetId = (id: number) => {
+    widgetId.value = id;
+};
+
+const handleErrorCallback = () => {
+    console.error("reCAPTCHA error");
+};
+
+const handleExpiredCallback = () => {
+    form.value.recaptcha = null;
+};
+
+const handleLoadCallback = (response: unknown) => {
+    form.value.recaptcha = response;
+};
+
+const submitForm = async () => {
+    isLoading.value = true;
+    
+    try {
+        const response = await axios.post('/contact-submit', form.value);
+        form.value = { name: '', email: '', message: '', recaptcha: null};
+    } catch (error) {
+    } finally {
+        isLoading.value = false;
+    }
+};
+
 </script>
+
