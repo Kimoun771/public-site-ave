@@ -36,12 +36,12 @@
                             placeholder="Enter certificate number"
                         />
                     </div>
-                    <button
-                        @click="verifyNow"
-                        class="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 lg:py-4 lg:px-6 rounded-lg transition duration-200 text-lg lg:text-xl font-medium mt-4"
+                    <Button
+                        :disabled="isLoading" unstyled @click="verifyNow" :pt="{ root: { class: 'w-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center py-3 px-4 lg:py-4 lg:px-6 rounded-lg transition duration-200 text-lg lg:text-xl font-medium mt-4'} }"
                     >
-                        Verify Now
-                    </button>
+                        <i :class="isLoading ? 'pi pi-spinner pi-spin text-white text-xl mr-2' : 'pi pi-search text-white text-xl mr-2'"></i>
+                        <span class="text-white">{{ isLoading ? 'Verifying...' : 'Verify Now' }}</span>
+                    </Button>
                 </div>
             </div>
         </div>
@@ -54,9 +54,10 @@ import { useToast } from 'primevue/usetoast';
 import Toast from 'primevue/toast';
 import SelectLabel from '@/Components/SelectLabel.vue';
 import VerificationMessage from '@/Components/VerifyCertificateMessage.vue';
+import Button from 'primevue/button';
 export default {
     name: 'CertificateVerification',
-    components: { SelectLabel, Heading2, Toast, VerificationMessage },
+    components: { SelectLabel, Heading2, Toast, VerificationMessage, Button },
     props: {
         countries: Array,
     },
@@ -69,6 +70,7 @@ export default {
             responseData: {},
             showMessage: false,
             certificateNumber: '',
+            isLoading: false,
         };
     },
     setup() {
@@ -76,7 +78,7 @@ export default {
         return { toast };
     },
     methods: {
-        verifyNow(e) {
+        async verifyNow(e) {
             e.preventDefault();
             if (!this.country) {
                 this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please select a country', life: 3000 });
@@ -86,26 +88,27 @@ export default {
                 this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please enter a certificate number', life: 3000 });
                 return;
             }
-            if (this.country && this.certificateNumber){
-                axios.post("/api/verify-certificate",
-                    {
-                        country: this.country,
-                        certificate_number: this.certificateNumber
-                    }
-                ).then((response) => {
-                    const data = response.data;
-                    if (data.success === false){
-                        this.showFormAlert = true;
-                        this.showMessage = true;
-                        this.responseMessage = response.data.message
-                        console.log(this.responseMessage);
-                    }
-                    if(data.success === true){
-                        this.showFormAlert = false;
-                        this.showMessage = true;
-                        this.responseData = data.certificate;
-                    }
+            this.isLoading = true;
+            try {
+                const response = await axios.post("/api/verify-certificate", {
+                    country: this.country,
+                    certificate_number: this.certificateNumber,
                 });
+                const data = response.data;
+                if (!data.success) {
+                    this.showFormAlert = true;
+                    this.showMessage = true;
+                    this.responseMessage = data.message;
+                } else {
+                    this.showFormAlert = false;
+                    this.showMessage = true;
+                    this.responseData = data.certificate;
+                }
+
+            } catch (error) {
+                this.toast.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong.', life: 3000 });
+            } finally {
+                this.isLoading = false;
             }
             this.$emit('verify', {
                 country: this.country,

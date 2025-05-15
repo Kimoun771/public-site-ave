@@ -10,7 +10,7 @@ import { install as VueCompanyLib } from 'vue-company-lib';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Noir from './presets/Noir'
-
+import 'primeicons/primeicons.css';
 
 createInertiaApp({
     title: (title) => `${title}`,
