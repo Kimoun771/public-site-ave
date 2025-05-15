@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Noir from './presets/Noir'
 import 'primeicons/primeicons.css';
+import { install as VueRecaptcha } from "vue3-recaptcha-v2";
 
 createInertiaApp({
     title: (title) => `${title}`,
@@ -38,6 +39,9 @@ createInertiaApp({
             })
             .use(VueCompanyLib)
             .use(ToastService)
+             .use(VueRecaptcha, {
+                sitekey: '6Lc07KYqAAAAADiqjV51xn86JSAaMJubYTdCpWCc',
+            })
             .mount(el);
     },
     progress: {
