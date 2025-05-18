@@ -9,4 +9,5 @@ return [
     'expire_date' => 'Expire Date',
     'status' => 'Status',
     'report' => 'Report',
+    'row_number' => 'No.'
 ];

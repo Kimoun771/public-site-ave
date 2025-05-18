@@ -8,5 +8,6 @@ return [
     'registration_date' => 'ថ្ងៃចុះឈ្មោះ',
     'expire_date' => 'ថ្ងៃផុតកំណត់',
     'status' => 'ស្ថានភាព',
-    'report' => 'របាយការណ៍'
+    'report' => 'របាយការណ៍',
+    'row_number' => 'ល.រ'
 ];

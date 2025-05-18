@@ -40,7 +40,7 @@ createInertiaApp({
             .use(VueCompanyLib)
             .use(ToastService)
              .use(VueRecaptcha, {
-                sitekey: '6Lc07KYqAAAAADiqjV51xn86JSAaMJubYTdCpWCc',
+                sitekey: '6LdqljwrAAAAANqfnHO4TpFhnJiJrSSHXPfmWAYD',
             })
             .mount(el);
     },
