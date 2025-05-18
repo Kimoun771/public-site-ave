@@ -3,12 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Models\Certificate;
-use Filament\Tables;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\ExportAction;
 use Illuminate\Database\Eloquent\Builder;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class CertificateSuspendedResource extends Resource
 {
@@ -35,6 +36,12 @@ class CertificateSuspendedResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('row_number')
+                    ->label(__('certificate_suspended.row_number'))
+                    ->state(static function ($record, $livewire) {
+                        return ($livewire->getTableRecords()->search(fn ($r) => $r->getKey() === $record->getKey()) + 1);
+                    })
+                    ->sortable(false),
                 TextColumn::make('certificate_number')
                     ->label(__('certificate_suspended.certificate_number'))
                     ->sortable()
@@ -47,20 +54,16 @@ class CertificateSuspendedResource extends Resource
 
                 TextColumn::make('registration_date')
                     ->label(__('certificate.registration_date'))
-                    ->state(function ($record) {
-                        return $record->registration_date
-                            ? \Carbon\Carbon::parse($record->registration_date)->format('M-d-Y')
-                            : 'N/A';
-                    })
+                    ->state(fn ($record) => $record->registration_date
+                        ? \Carbon\Carbon::parse($record->registration_date)->format('M-d-Y')
+                        : 'N/A')
                     ->toggleable(),
 
                 TextColumn::make('expire_date')
                     ->label(__('certificate.expire_date'))
-                    ->state(function ($record) {
-                        return $record->expire_date
-                            ? \Carbon\Carbon::parse($record->expire_date)->format('M-d-Y')
-                            : 'N/A';
-                    })
+                    ->state(fn ($record) => $record->expire_date
+                        ? \Carbon\Carbon::parse($record->expire_date)->format('M-d-Y')
+                        : 'N/A')
                     ->toggleable(),
 
                 TextColumn::make('status')
@@ -72,9 +75,17 @@ class CertificateSuspendedResource extends Resource
                         default => 'gray',
                     }),
             ])
-            ->filters([]);
+            ->filters([])
+            ->bulkActions([
+                ExportBulkAction::make()
+                    ->label('Export to Excel')
+                    ->exports([
+                        ExcelExport::make()
+                            ->fromTable()
+                            ->withFilename('Certificate_Suspended'),
+                    ])
+            ]);
     }
-
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
