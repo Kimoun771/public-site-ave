@@ -113,6 +113,7 @@ class CertificateResource extends Resource
                             DatePicker::make('registration_date')
                                 ->label(__('certificate.registration_date'))
                                 ->reactive()
+                                ->required()
                                 ->afterStateUpdated(function (Get $get, Set $set) {
                                     if (filled($get('registration_date'))) {
                                         $set('expire_date', null);
@@ -124,6 +125,7 @@ class CertificateResource extends Resource
                             DatePicker::make('expire_date')
                                 ->label(__('certificate.expire_date'))
                                 ->reactive()
+                                ->required()
                                 ->afterStateUpdated(function (Get $get, Set $set) {
                                     if (filled($get('expire_date'))) {
                                         $set('registration_date', null);
