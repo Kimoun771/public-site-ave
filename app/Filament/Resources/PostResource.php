@@ -21,7 +21,10 @@ use SolutionForest\FilamentTranslateField\Forms\Component\Translate;
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
-
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
