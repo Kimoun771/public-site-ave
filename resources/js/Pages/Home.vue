@@ -12,6 +12,26 @@ import Heading1 from '@/Components/Typography/Heading1.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import { Link } from '@inertiajs/vue3';
+const slideshowData = ref([
+    {
+        image: 'https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg',
+        alt: 'Certification background',
+        title: 'Drive Business Excellence with Trusted Certifications!',
+        description: 'Get internationally accredited certifications for quality and environmental compliance to enhance your business credibility.'
+    },
+    {
+        image: 'https://norsesoundcreative.com/wp-content/uploads/2017/09/hero-image-feature-img.jpg',
+        alt: 'Nature background',
+        title: 'Enhance Sustainability with Certified Standards!',
+        description: 'Obtain certifications that support your organization\'s environmental and social responsibility goals.'
+    },
+    {
+        image: 'https://images.squarespace-cdn.com/content/v1/6282ec55d5f3c229291fcb47/1674437725718-PQYL45LC1J5G7XX6ZAIM/image-asset.png?format=2500w',
+        alt: 'Business growth background',
+        title: 'Drive Business Excellence with Trusted Certifications!',
+        description: 'Boost customer confidence and operational efficiency with globally recognized certifications.'
+    }
+]);
 const clients = ref([
     { name: 'Company 1', logo: 'https://www.en.cgti.com.my/assets/images/partner/ACM.png' },
     { name: 'Company 2', logo: 'https://www.en.cgti.com.my/assets/images/partner/unesco.png' },
@@ -96,7 +116,7 @@ const companyOverviewData = ref([
 <template>
     <GeneralLayout laravel-version="" php-version="">
         <section>
-            <Slideshow></Slideshow>
+            <Slideshow :slides="slideshowData"></Slideshow>
             <div class="lg:px-24">
                 <CompanyOverview
                     title="VE-CERT"
