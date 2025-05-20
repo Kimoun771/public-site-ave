@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Settings\ServiceSetting;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,9 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'name' => config('app.name'),
                 'url' => config('app.url'),
             ],
-            'settings' => [
-                // spatie settings
-            ],
+            'settings' =>  $this->getCurrentDataSetting(),
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'currentLocale' => LaravelLocalization::getCurrentLocale(),
@@ -62,4 +61,37 @@ class HandleInertiaRequests extends Middleware
             'phpVersion' => PHP_VERSION,
         ];
     }
+    /**
+     * The root template that is loaded on the first page visit.
+     *
+     * @return string
+     */
+
+     private function getCurrentDataSetting()
+     {
+        // Get the current page URL
+        $currentUrl = url()->current();
+        // Parse the URL to extract the last segment
+        $path = parse_url($currentUrl, PHP_URL_PATH);
+        $segments = explode('/', $path);
+        $lastSegment = end($segments);
+
+        // If there's a locale prefix like 'en', get the segment after it
+        if (in_array($lastSegment, array_keys(LaravelLocalization::getSupportedLocales()))) {
+            $previousSegment = prev($segments);
+            if ($previousSegment) {
+            $lastSegment = $previousSegment;
+            }
+        }
+
+        // Return the appropriate page based on the URL segment
+        return match($lastSegment) {
+            'service' =>  app(ServiceSetting::class)->getFormattedSettings(),
+            'inspection' => 'Inspection',
+            'training' => 'Training',
+            'about' => 'About',
+            'contact' => 'Contact',
+            default => 'Home',
+        };
+     }
 }
