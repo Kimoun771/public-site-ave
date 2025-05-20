@@ -35,7 +35,7 @@ class ManageService extends SettingsPage
                         )
                             ->label('Name')
                             ->columnSpanFull()
-                            ->requiredLocales(['en', 'kh']),
+                            ->requiredLocales(['en', 'km']),
                         TranslatableContainer::make(
                             Textarea::make('description')
                                 ->required()
@@ -44,7 +44,7 @@ class ManageService extends SettingsPage
                         )
                             ->label('Description')
                             ->columnSpanFull()
-                            ->requiredLocales(['en', 'kh']),
+                            ->requiredLocales(['en', 'km']),
                         FileUpload::make('image')
                             ->image()
                             ->disk('public')
