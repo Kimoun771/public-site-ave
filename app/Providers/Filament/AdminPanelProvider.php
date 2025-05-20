@@ -46,12 +46,12 @@ class AdminPanelProvider extends PanelProvider
                 FilamentTranslatableFieldsPlugin::make()
                     ->supportedLocales([
                         'en' => 'English',
-                        'kh' => 'Khmer',
+                        'km' => 'Khmer',
                     ]),
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['en', 'kh']),
+                    ->defaultLocales(['en', 'km']),
                 FilamentTranslateFieldPlugin::make()
-                    ->defaultLocales(['en', 'kh']),
+                    ->defaultLocales(['en', 'km']),
             ])
             ->middleware([
                 EncryptCookies::class,

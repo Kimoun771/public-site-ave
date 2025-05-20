@@ -284,7 +284,7 @@ return [
         //'iu'          => ['name' => 'Inuktitut (Canadian Aboriginal Syllabics)', 'script' => 'Cans', 'native' => 'ᐃᓄᒃᑎᑐᑦ', 'regional' => 'iu_CA'],
         //'oj'          => ['name' => 'Ojibwa',                 'script' => 'Cans', 'native' => 'ᐊᓂᔑᓈᐯᒧᐎᓐ', 'regional' => ''],
         //'cr'          => ['name' => 'Cree',                   'script' => 'Cans', 'native' => 'ᓀᐦᐃᔭᐍᐏᐣ', 'regional' => ''],
-        //'km'          => ['name' => 'Khmer',                  'script' => 'Khmr', 'native' => 'ភាសាខ្មែរ', 'regional' => 'km_KH'],
+        'km'          => ['name' => 'Khmer',                  'script' => 'Khmr', 'native' => 'ភាសាខ្មែរ', 'regional' => 'km_KH'],
         //'mn-Mong'     => ['name' => 'Mongolian (Mongolian)',  'script' => 'Mong', 'native' => 'ᠮᠣᠨᠭᠭᠣᠯ ᠬᠡᠯᠡ', 'regional' => 'mn_MN'],
         //'shi-Tfng'    => ['name' => 'Tachelhit (Tifinagh)',   'script' => 'Tfng', 'native' => 'ⵜⴰⵎⴰⵣⵉⵖⵜ', 'regional' => ''],
         //'tzm'         => ['name' => 'Central Atlas Tamazight (Tifinagh)','script' => 'Tfng', 'native' => 'ⵜⴰⵎⴰⵣⵉⵖⵜ', 'regional' => ''],
