@@ -59,7 +59,7 @@ const isActive = (menu) => {
                         :href="menu.link"
                         :class="[
                             'rounded-lg py-1.5 px-3 transition-colors duration-300 font-bold lg:text-lg text-md',
-                            isActive(menu) ? 'text-blue-600 dark:text-blue-400' : 'text-black-900 hover:text-blue-800 hover:text-opacity-30'
+                            isActive(menu) ? 'text-blue-600 dark:text-blue-400' : 'text-black-900 hover:text-blue-800 hover:text-opacity-100'
                         ]"
                     >
                         {{ $t(menu.label) }}
