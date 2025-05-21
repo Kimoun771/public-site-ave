@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -36,7 +35,6 @@ return new class extends Migration
             $table->string('currency')->default('USD');
             $table->string('country_code')->nullable();
 
-
             $table->tinyInteger('status')->default(1)->unsigned();
 
             $table->integer('created_by')->unsigned()->nullable();
@@ -49,13 +47,13 @@ return new class extends Migration
 
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Link to users table
-            $table->string('provider'); // e.g., 'google', 'github'
-            $table->string('provider_id'); // Provider's unique user ID
-            $table->string('provider_token')->nullable(); // Optional: Store access token
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('provider');
+            $table->string('provider_id');
+            $table->string('provider_token')->nullable();
             $table->timestamps();
 
-            $table->unique(['provider', 'provider_id']); // Ensure unique provider-user combination
+            $table->unique(['provider', 'provider_id']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -79,9 +77,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
         Schema::dropIfExists('providers');
+        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
