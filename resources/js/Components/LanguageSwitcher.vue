@@ -47,7 +47,7 @@ const props = defineProps(['currentLocale']);
 
 const languages = [
     { code: 'en', name: 'English', flag: 'https://flagcdn.com/w20/gb.png' },
-    { code: 'kh', name: 'Khmer', flag: 'https://flagcdn.com/w20/kh.png' },
+    { code: 'km', name: 'Khmer', flag: 'https://flagcdn.com/w20/kh.png' },
 ];
 
 const currentLanguage = computed(() => {
