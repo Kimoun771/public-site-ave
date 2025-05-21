@@ -3,30 +3,15 @@
 namespace App\Settings;
 
 use Spatie\LaravelSettings\Settings;
-use Spatie\Translatable\HasTranslations;
 
 class InspectionSettings extends Settings
 {
-    use HasTranslations;
     public string $hero_image = '';
     public array $title = [];
     public array $description = [];
     public array $assurance_and_compliance_title = [];
     public array $assurance_and_compliance_description = [];
     public array $assurance_and_compliance_image_des = [];
-
-    /**
-     * Fields that are translatable.
-     *
-     * @var array<int, string>
-     */
-    protected array $translatable = [
-        'title',
-        'description',
-        'assurance_and_compliance_title',
-        'assurance_and_compliance_description',
-        'assurance_and_compliance_image_des',
-    ];
 
     /**
      * Group name used to identify this setting in the database.
@@ -46,14 +31,17 @@ class InspectionSettings extends Settings
         $locale = app()->getLocale();
 
         return [
-            'title' => $this->getTranslation('title', $locale),
-            'description' => $this->getTranslation('description', $locale),
+            'title' => $this->getTranslationForLocale('title', $locale),
+            'description' => $this->getTranslationForLocale(
+                'description',
+                $locale
+            ),
             'hero_image' => $this->hero_image,
-            'assurance_and_compliance_title' => $this->getTranslation(
+            'assurance_and_compliance_title' => $this->getTranslationForLocale(
                 'assurance_and_compliance_title',
                 $locale
             ),
-            'assurance_and_compliance_description' => $this->getTranslation(
+            'assurance_and_compliance_description' => $this->getTranslationForLocale(
                 'assurance_and_compliance_description',
                 $locale
             ),
@@ -66,5 +54,19 @@ class InspectionSettings extends Settings
                 ];
             }, $this->assurance_and_compliance_image_des),
         ];
+    }
+
+    /**
+     * Get translation for a specific locale
+     *
+     * @param string $attribute
+     * @param string $locale
+     * @return string|null
+     */
+    protected function getTranslationForLocale(
+        string $attribute,
+        string $locale
+    ): ?string {
+        return $this->{$attribute}[$locale] ?? null;
     }
 }

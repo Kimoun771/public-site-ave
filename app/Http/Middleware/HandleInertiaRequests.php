@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Settings\ServiceSetting;
+use App\Settings\InspectionSettings;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -87,7 +88,7 @@ class HandleInertiaRequests extends Middleware
         // Return the appropriate page based on the URL segment
         return match($lastSegment) {
             'service' =>  app(ServiceSetting::class)->getFormattedSettings(),
-            'inspection' => 'Inspection',
+            'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
             'training' => 'Training',
             'about' => 'About',
             'contact' => 'Contact',
