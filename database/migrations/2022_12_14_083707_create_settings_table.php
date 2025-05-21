@@ -8,6 +8,8 @@ return new class extends Migration
 {
     public function up()
     {
+        Schema::dropIfExists('settings');
+        
         Schema::create('settings', function (Blueprint $table): void {
             $table->id();
 
@@ -20,5 +22,9 @@ return new class extends Migration
 
             $table->unique(['group', 'name']);
         });
+    }
+    public function down(): void
+    {
+        Schema::dropIfExists('settings');
     }
 };
