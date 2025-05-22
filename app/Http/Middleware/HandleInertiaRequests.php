@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Settings\ServiceSetting;
 use App\Settings\InspectionSettings;
+use App\Settings\TrainingSettings;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -89,7 +90,7 @@ class HandleInertiaRequests extends Middleware
         return match($lastSegment) {
             'service' =>  app(ServiceSetting::class)->getFormattedSettings(),
             'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
-            'training' => 'Training',
+            'training' => app(TrainingSettings::class)->getFormattedSettings(),
             'about' => 'About',
             'contact' => 'Contact',
             default => 'Home',
