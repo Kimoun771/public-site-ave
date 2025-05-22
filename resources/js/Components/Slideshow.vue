@@ -37,37 +37,29 @@
             @click="prevSlide"
             aria-label="Previous slide"
         >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
+            <Icon icon="mdi:chevron-left" class="h-4 w-4" />
         </button>
         <button
             class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300 z-20 focus:outline-none focus:ring-2 focus:ring-white w-8 h-14 lg:w-8 lg:h-14 flex items-center justify-center"
             @click="nextSlide"
             aria-label="Next slide"
         >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
+            <Icon icon="mdi:chevron-right" class="h-4 w-4" />
         </button>
         <button
             class="absolute bottom-4 right-4 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white w-8 h-8 flex items-center justify-center"
             @click="toggleAutoplay"
             :aria-label="autoplayActive ? 'Pause slideshow' : 'Play slideshow'"
         >
-            <svg v-if="autoplayActive" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <Icon v-if="autoplayActive" icon="mdi:pause-circle" class="h-4 w-4" />
+            <Icon v-else icon="mdi:play-circle" class="h-4 w-4" />
         </button>
     </section>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import { Icon } from '@iconify/vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 
@@ -76,17 +68,16 @@ const props = defineProps<{
         image: string;
         alt: string;
         title: string;
-        description: string
+        description: string;
     }[];
 }>();
 const currentSlide = ref(0);
 const autoplayActive = ref(true);
-const autoplayInterval = ref(null);
-const autoplayDuration = 5000; // 5 seconds
+const autoplayInterval = ref<number | null>(null);
+const autoplayDuration = 5000;
 
-const changeSlide = (index) => {
-    if (index === currentSlide.value) return;
-    currentSlide.value = index;
+const changeSlide = (index: number) => {
+    if (index !== currentSlide.value) currentSlide.value = index;
 };
 
 const prevSlide = () => {
@@ -99,39 +90,22 @@ const nextSlide = () => {
 
 const toggleAutoplay = () => {
     autoplayActive.value = !autoplayActive.value;
-    if (autoplayActive.value) {
-        startAutoplay();
-    } else {
-        clearInterval(autoplayInterval.value);
-    }
+    if (autoplayActive.value) startAutoplay();
+    else clearInterval(autoplayInterval.value!);
 };
 const startAutoplay = () => {
-    clearInterval(autoplayInterval.value);
+    clearInterval(autoplayInterval.value!);
     autoplayInterval.value = setInterval(() => {
-        if (autoplayActive.value) {
-            nextSlide();
-        }
+        if (autoplayActive.value) nextSlide();
     }, autoplayDuration);
 };
-const resetAutoplayTimer = () => {
-    if (autoplayActive.value) {
-        clearInterval(autoplayInterval.value);
-        startAutoplay();
-    }
-};
 const handleVisibilityChange = () => {
-    if (document.hidden) {
-        clearInterval(autoplayInterval.value);
-    } else if (autoplayActive.value) {
-        startAutoplay();
-    }
+    if (document.hidden) clearInterval(autoplayInterval.value!);
+    else if (autoplayActive.value) startAutoplay();
 };
-const handleKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') {
-        prevSlide();
-    } else if (e.key === 'ArrowRight') {
-        nextSlide();
-    }
+const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    else if (e.key === 'ArrowRight') nextSlide();
 };
 onMounted(() => {
     startAutoplay();
@@ -139,7 +113,7 @@ onMounted(() => {
     document.addEventListener('keydown', handleKeyDown);
 });
 onUnmounted(() => {
-    clearInterval(autoplayInterval.value);
+    clearInterval(autoplayInterval.value!);
     document.removeEventListener('visibilitychange', handleVisibilityChange);
     document.removeEventListener('keydown', handleKeyDown);
 });
