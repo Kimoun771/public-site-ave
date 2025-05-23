@@ -8,8 +8,8 @@ return [
     'country' => 'ប្រទេស',
     'company' => 'ក្រមហ៊ុន',
     'plural' => 'ក្រុមហ៊ុនទាំងអស់',
-    'name_scheme' => 'គ្រោងការណ៍ឈ្មោះ',
-    'description_scheme' => 'ពិពណ៌នាអំពីគម្រោងការណ៍',
-    'name_scope' => 'វិសាលភាពនៃឈ្មោះ',
-    'description_scope' => 'ពិពណ៌នាអំពីវិសាលភាព',
+    'name_scheme' => 'ឈ្មោះ',
+    'description_scheme' => 'ពិពណ៌នា',
+    'name_scope' => 'ឈ្មោះ',
+    'description_scope' => 'ពិពណ៌នា',
 ];
