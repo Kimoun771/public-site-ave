@@ -10,8 +10,8 @@ return [
     'plural' => 'Companies',
     'add_new_scheme' => 'Add New Scheme',
     'add_new_scope' => 'Add New Scope',
-    'name_scheme' => 'Name Scheme',
-    'description_scheme' => 'Description Scheme',
-    'name_scope' => 'Name Scope',
-    'description_scope' => 'Description Scope',
+    'name_scheme' => 'Name',
+    'description_scheme' => 'Description',
+    'name_scope' => 'Name',
+    'description_scope' => 'Description',
 ];
