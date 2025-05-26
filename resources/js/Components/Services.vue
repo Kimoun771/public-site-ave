@@ -5,7 +5,7 @@
         class="rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-gray-100"
     >
         <LazyImage
-            :src="service.imageUrl"
+            :src="`/uploads/`+service.imageUrl"
             :alt="service.title"
             class="w-full h-48 object-cover transition-transform duration-300 hover:scale-100"
         />
