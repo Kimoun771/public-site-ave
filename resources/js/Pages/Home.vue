@@ -6,43 +6,70 @@ import CardCompanyOverview from '@/Components/CardCompanyOverview.vue';
 import TestimonialsSection from '@/Components/TestimonialsSection.vue';
 import ClientCarousel from '@/Components/SwiperImage.vue';
 import ServicesSection from '@/Components/Services.vue';
-import { ref , onMounted } from 'vue';
+import { ref , onMounted , computed} from 'vue';
 import CertificationBanner from '@/Components/CertificationBanner.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import { Link } from '@inertiajs/vue3';
-const slideshowData = ref([
-    {
-        image: 'https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg',
-        alt: 'Certification background',
-        title: 'Drive Business Excellence with Trusted Certifications!',
-        description: 'Get internationally accredited certifications for quality and environmental compliance to enhance your business credibility.'
-    },
-    {
-        image: 'https://norsesoundcreative.com/wp-content/uploads/2017/09/hero-image-feature-img.jpg',
-        alt: 'Nature background',
-        title: 'Enhance Sustainability with Certified Standards!',
-        description: 'Obtain certifications that support your organization\'s environmental and social responsibility goals.'
-    },
-    {
-        image: 'https://images.squarespace-cdn.com/content/v1/6282ec55d5f3c229291fcb47/1674437725718-PQYL45LC1J5G7XX6ZAIM/image-asset.png?format=2500w',
-        alt: 'Business growth background',
-        title: 'Drive Business Excellence with Trusted Certifications!',
-        description: 'Boost customer confidence and operational efficiency with globally recognized certifications.'
-    }
-]);
-const clients = ref([
-    { name: 'Company 1', logo: 'https://www.en.cgti.com.my/assets/images/partner/ACM.png' },
-    { name: 'Company 2', logo: 'https://www.en.cgti.com.my/assets/images/partner/unesco.png' },
-    { name: 'Company 3', logo: 'https://www.vecert.com/image/vecert-logo.png' },
-    { name: 'Company 4', logo: 'https://www.vecert.com/image/vecert-logo.png' },
-    { name: 'Company 5', logo: 'https://www.vecert.com/image/vecert-logo.png' },
-    { name: 'Company 6', logo: 'https://www.en.cgti.com.my/assets/images/partner/ILO.png' },
-    { name: 'Company 7', logo: 'https://www.en.cgti.com.my/assets/images/partner/taftc.png' },
-    { name: 'Company 8', logo: 'https://www.en.cgti.com.my/assets/images/partner/oafd.png' },
-    { name: 'Company 9', logo: 'https://www.en.cgti.com.my/assets/images/partner/unesco.png' },
-]);
+
+interface VecertData {
+  image: string;
+  title: string;
+  description: string;
+}
+
+interface ClientImageDes {
+  title: string;
+  description: string;
+  images: string[];
+}
+
+interface VecertDetailItem {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface HomeSettings {
+  vecert: VecertData;
+  vecert_image_des: VecertDetailItem[];
+  our_client_image_des: ClientImageDes;
+}
+
+interface Props {
+  settings: {
+    home: HomeSettings;
+    service_homepage: any;
+  };
+}
+
+const props = defineProps<Props>();
+
+const slideShow = computed(() => {
+  const rawSlides = props.settings?.home?.slide_image_des ?? [];
+  return rawSlides.map(slide => ({
+    image: slide.image || '', 
+    alt: slide.title || '',
+    heading: slide.title || '',
+    desc: slide.description || ''
+  }));
+});
+const vecert = computed(() => props.settings?.home?.vecert);
+const settingsServiceData = computed(() => props.settings?.service_homepage);
+const vecertDetail = computed(() => props.settings?.home?.vecert_image_des);
+const ourClient = computed(() => props.settings?.home?.our_client_image_des);
+const services = computed(() => props.settings?.service_homepage);
+
+const clients = computed(() =>
+  Array.isArray(ourClient.value?.images)
+    ? ourClient.value.images.map((url) => ({
+        name: ourClient.value.title,
+        logo: `/uploads/${url}`,
+      }))
+    : []
+);
+
 const testimonialsList = ref([
     {
         quote: "Excellent support and professional service. Highly recommended!",
@@ -69,76 +96,36 @@ const testimonialsList = ref([
         avatar: "https://img.freepik.com/free-photo/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg"
     }
 ]);
-const servicesData = ref([
-    {
-        id: 1,
-        title: 'Quality',
-        imageUrl: 'https://www.vecert.com/images/665dcccc9499e_600w.png',
-        description: 'Quality Management Systems guide your organization seeking to improve the way it is operated and managed, regardless of industry and size. With our auditor teams, your auditor teams, you are audit-ready!'
-    },
-    {
-        id: 2,
-        title: 'ANTI- BRIBERY',
-        imageUrl: 'https://www.vecert.com/images/677b3fe2bbe56_600w.jpg',
-        description: 'Long fights from generation to generation to have a good and equal competition.  Anti Bribery Management System- ABMS is published to recultivate humaninty with more efficient way of management tasks and living environment. '
-    },
-    {
-        id: 3,
-        title: 'FOOD SAFETY',
-        imageUrl: 'https://www.ficsi.in/blog/wp-content/uploads/2023/09/blog21-1.jpg',
-        description: 'Food Safety Management Systems are a standard suitable for any business in the entire food chain such as food producers, packaging suppliers, chemical producers, equipment producers and other related party.'
-    },
-    {
-        id: 4,
-        title: 'RISK MANAGEMENT',
-        imageUrl: 'https://www.vecert.com/images/665dcd3e80ead_600w.png',
-        description: 'Food Safety Management Systems are a standard suitable for any business in the entire food chain such as food producers, packaging suppliers, chemical producers, equipment producers and other related party.'
-    }
-]);
-const companyOverviewData = ref([
-    {
-        title: 'Inspection',
-        image: 'https://www.vecert.com/image/Vecert/Inspection.png',
-        description: "Our comprehensive range of inspection and verification services, such as checking the condition to ensure your products and services are within the customers' specifications."
-    },
-    {
-        title: 'Verification',
-        image: 'https://www.vecert.com/image/Vecert/verification.png',
-        description: "We ensure that products and services comply with global standards and local regulations."
-    },
-    {
-        title: 'Certificate',
-        image: 'https://www.vecert.com/image/Vecert/verification.png',
-        description: "We provide a platform for you to demonstrate that your products, processes, systems, or services are compliant with either national or international standards and regulations or customer-defined specifications."
-    }
-]);
+
+
 </script>
 <template>
-    <GeneralLayout laravel-version="" php-version="">
+    <GeneralLayout>
         <section>
-            <Slideshow :slides="slideshowData"></Slideshow>
+            <Slideshow :slides="slideShow" />
             <div class="lg:px-24">
-                <CompanyOverview
-                    title="VE-CERT"
-                    image-src="https://www.vecert.com/image/Vecert/service_marketing.jpg"
-                    description="VE Cert is an independent inspection, verification and certification company which benchmarks international standards from time to time. We are constantly improving our services to exceed customers' and market's expectations in order to provide the BEST SERVICES in the market">
+                <CompanyOverview 
+                    v-if="vecert"
+                    :title="vecert?.title"
+                    :image-src="`/uploads/`+vecert?.image"
+                    :description="vecert?.description">
                 </CompanyOverview>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 py-6">
                     <CardCompanyOverview
-                        v-for="(item, index) in companyOverviewData"
+                        v-for="(item, index) in vecertDetail"
                         :key="index"
                         :title="item.title"
-                        :image="item.image"
+                        :image="`/uploads/`+item.image"
                         :description="item.description"
                     />
                 </div>
                 <div class="container mx-auto px-4">
                     <div class="text-center mb-12">
                         <Heading1 class="text-gray-900">
-                            Our Clients
+                            {{ ourClient?.title }}
                         </Heading1>
                         <Paragraph class="text-gray-600 mt-2">
-                            We have been working with some Fortune 500+ clients
+                            {{ ourClient?.description }} 
                         </Paragraph>
                     </div>
                     <ClientCarousel :clients="clients" />
@@ -160,7 +147,7 @@ const companyOverviewData = ref([
                 Our Services
             </Heading1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:px-24">
-                <ServicesSection :services="servicesData" />
+                <ServicesSection :services="settingsServiceData" />
             </div>
             <div class=" flex justify-center underline text-black py-4">
                 <Link href="/service" >
