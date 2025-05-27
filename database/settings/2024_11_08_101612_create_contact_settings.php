@@ -2,57 +2,102 @@
 
 use Spatie\LaravelSettings\Migrations\SettingsMigration;
 
-
-return new class extends SettingsMigration
-{
+return new class extends SettingsMigration {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        // contact
-        $this->migrator->add('contact.email', 'test@gmail.com');
-        $this->migrator->add('contact.button_text', [
-            'en' => 'Contact Us',
-            'es' => 'Contáctenos',
-            'fr' => 'Nous contacter',
+        $this->migrator->add(
+            'contact.hero_image',
+            '/assets/images/about/banner.jpg'
+        );
+
+        $this->migrator->add('contact.title', [
+            'en' => 'Ensuring Quality & Compliance Through Expert Inspections!',
+            'km' =>
+                'ការធានាគុណភាព និងការគោរពតាមបទបញ្ជា តាមរយៈការត្រួតពិនិត្យដោយអ្នកជំនាញ!',
         ]);
 
-        $this->migrator->add('contact.label', [
-            'en' => 'Get in touch !',
-            'es' => '¡Ponte en contacto!',
-            'fr' => 'Entrer en contact !',
+        $this->migrator->add('contact.description', [
+            'en' =>
+                'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.',
+            'km' =>
+                'យើងផ្តល់សេវាកម្មត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ដោយឯករាជ្យ ដើម្បីជួយអាជីវកម្មឱ្យបំពេញតាមស្តង់ដារឧស្សាហកម្ម និងលក្ខខណ្ឌផ្នែកនិតិវិធី។',
         ]);
 
-        $this->migrator->add('contact.google_map_iframe', '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13861.504838868728!2d-9.03342255!3d32.73581095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdaead45ca9c2d35%3A0x158c4f72ead2db52!2sOualidia!5e1!3m2!1sen!2sma!4v1727622300949!5m2!1sen!2sma" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>');
-
-            $this->migrator->add('contact.info', [
-            'en' => [
-                ContactInfo::create('Phone', 'phone', '+1234567890', 'tel:+1234567890', 'Call us anytime'),
-                ContactInfo::create('Email', 'mail', 'abdessamadbattal@gmail.com', 'mailto:abdessamadbattal@gmail.com', 'Send us an email'),
-                ContactInfo::create('Address', 'map-pin', '123 Street, City, Country', 'https://maps.app.goo.gl/nAeytqD2351v6wzW6', 'Visit our office'),
+        $this->migrator->add('contact.contact_info', [
+            [
+                'name' => [
+                    'en' => 'Cambodia',
+                    'km' => 'កម្ពុជា',
+                ],
+                'phone' => '+855 23 456 789',
+                'email' => 'info-kh@mycompany.com',
+                'address' => [
+                    'en' =>
+                        'No 185D St.K4B Phumi, Trung Morn St, Phnom Penh, Cambodia',
+                    'km' =>
+                        'លេខ ១៨៥ ផ្លូវ K4B ភូមិ ផ្លូវ ទ្រុង មន ភ្នំពេញ កម្ពុជា',
+                ],
+                'working_hour' => [
+                    'en' => 'Monday To Friday 08:00AM To 05:00PM',
+                    'km' => 'ចន្ទ ដល់ សុក្រ ម៉ោង ៨:០០ ដល់ ១៧:០០',
+                ],
+                'map_url' => 'https://maps.example.com/location1',
             ],
-            'es' => [
-                ContactInfo::create('Teléfono', 'phone', '+1234567890', 'tel:+1234567890', 'Llámenos en cualquier momento'),
-                ContactInfo::create('Correo electrónico', 'envelope', 'abdessamadbattal@gmail.com', 'mailto:abdessamadbattal@gmail.com', 'Envíenos un correo electrónico'),
-                ContactInfo::create('Dirección', 'map-marker-alt', '123 Street, City, Country', 'https://goo.gl/maps/1', 'Visite nuestra oficina'),
+            [
+                'name' => [
+                    'en' => 'Indonesia',
+                    'km' => 'ឥណ្ឌូនេស៊ី',
+                ],
+                'phone' => '+62 21 789 0123',
+                'email' => 'info-id@mycompany.com',
+                'address' => [
+                    'en' => 'Jl. Sudirman No. 123, Jakarta, Indonesia',
+                    'km' => 'ផ្លូវ សុឌីម៉ាន់ លេខ ១២៣ ទីក្រុងចាការតា ឥណ្ឌូនេស៊ី',
+                ],
+                'working_hour' => [
+                    'en' => 'Monday To Friday 09:00AM To 06:00PM',
+                    'km' => 'ចន្ទ ដល់ សុក្រ ម៉ោង ៩:០០ ដល់ ១៨:០០',
+                ],
+                'map_url' => 'https://maps.example.com/location2',
             ],
-            'fr' => [
-                ContactInfo::create('Téléphone', 'phone', '+1234567890', 'tel:+1234567890', 'Appelez-nous à tout moment'),
-                ContactInfo::create('Email', 'envelope', 'abdessamadbattal@gmail.com', 'mailto:abdessamadbattal@gmail.com', 'Envoyez-nous un email'),
-                ContactInfo::create('Adresse', 'map-marker-alt', '123 Street, City, Country', 'https://goo.gl/maps/1', 'Visitez notre bureau'),
+            [
+                'name' => [
+                    'en' => 'Malaysia',
+                    'km' => 'ម៉ាឡេស៊ី',
+                ],
+                'phone' => '+603 2145 6789',
+                'email' => 'info-my@mycompany.com',
+                'address' => [
+                    'en' => '123 Jalan Sultan Ismail, Kuala Lumpur, Malaysia',
+                    'km' =>
+                        '១២៣ ផ្លូវ សុលតាន់ អ៊ីស្ម៉ាអ៊ីល កូឡាឡាំពួរ ម៉ាឡេស៊ី',
+                ],
+                'working_hour' => [
+                    'en' => 'Monday To Friday 08:30AM To 05:30PM',
+                    'km' => 'ចន្ទ ដល់ សុក្រ ម៉ោង ៨:៣០ ដល់ ១៧:៣០',
+                ],
+                'map_url' => 'https://maps.example.com/location3',
+            ],
+            [
+                'name' => [
+                    'en' => 'Singapore',
+                    'km' => 'សិង្ហបូរី',
+                ],
+                'phone' => '+65 6123 4567',
+                'email' => 'info-sg@mycompany.com',
+                'address' => [
+                    'en' => '123 Orchard Road, Singapore',
+                    'km' => '១២៣ ផ្លូវ អរឆឌ សិង្ហបូរី',
+                ],
+                'working_hour' => [
+                    'en' => 'Monday To Friday 08:30AM To 05:30PM',
+                    'km' => 'ចន្ទ ដល់ សុក្រ ម៉ោង ៨:៣០ ដល់ ១៧:៣០',
+                ],
+                'map_url' => 'https://maps.example.com/location4',
             ],
         ]);
     }
 };
-class ContactInfo
-{
-    public static function create($name, $icon, $value, $link, $description)
-    {
-        return [
-            'name' => $name,
-            'icon' => $icon,
-            'value' => $value,
-            'link' => $link,
-            'description' => $description,
-        ];
-    }
-}
-
