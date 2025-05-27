@@ -117,12 +117,4 @@ return new class extends SettingsMigration {
             ],
         ]);
     }
-
-    public function down(): void
-    {
-        $this->migrator->delete('home.slide_image_des');
-        $this->migrator->delete('home.vecert');
-        $this->migrator->delete('home.vecert_image_des');
-        $this->migrator->delete('home.our_client_image_des');
-    }
 };
