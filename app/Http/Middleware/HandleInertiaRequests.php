@@ -8,6 +8,7 @@ use App\Settings\ServiceSetting;
 use App\Settings\InspectionSettings;
 use App\Settings\TrainingSettings;
 use App\Settings\HomeSettings;
+use App\Settings\ContactSettings;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,8 @@ class HandleInertiaRequests extends Middleware
                     ServiceSetting::class
                 )->getFormattedSettings(),
             ],
+            'contact' => app(ContactSettings::class)->getFormattedSettings(),
+            default => 'Home',
         };
      }
 }
