@@ -50,9 +50,4 @@ return new class extends SettingsMigration
             ],
         ]);
     }
-
-    public function down(): void
-    {
-        $this->migrator->delete('service.services');
-    }
 };
