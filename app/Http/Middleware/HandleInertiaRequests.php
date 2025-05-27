@@ -94,15 +94,13 @@ class HandleInertiaRequests extends Middleware
             'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
             'training' => app(TrainingSettings::class)->getFormattedSettings(),
             'about' => 'About',
-            'contact' => 'Contact',
+            'contact' => app(ContactSettings::class)->getFormattedSettings(),
             default => [
                 'home' => app(HomeSettings::class)->getFormattedSettings(),
                 'service_homepage' => app(
                     ServiceSetting::class
                 )->getFormattedSettings(),
             ],
-            'contact' => app(ContactSettings::class)->getFormattedSettings(),
-            default => 'Home',
         };
      }
 }

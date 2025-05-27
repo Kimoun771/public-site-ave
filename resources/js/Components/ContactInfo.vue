@@ -8,28 +8,28 @@
         <div class="grid grid-cols-1 md:grid-cols-2 divide-x md:divide-x-0">
             <div class="bg-white">
                 <div class=" bg-gray-700 text-center py-4">
-                    <Heading3 class="text-xl text-white">Get In Touch With Us Now!</Heading3>
+                    <Heading3 class="text-xl text-white">{{ $t('contact.get_in_touch') }}</Heading3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-x md:divide-y-0">
                     <div class="p-6 flex flex-col items-center text-center border-b md:border-r md:border-b-0 shadow-lg">
                         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
                             <i class="pi pi-phone text-2xl text-gray-800"></i>
                         </div>
-                        <Heading3 class="font-bold text-xl mb-2">Phone Number</Heading3>
+                        <Heading3 class="font-bold text-xl mb-2">{{ $t('contact.phone_number') }}</Heading3>
                         <paragraph class="text-gray-700">{{ getCurrentCountry.phone }}</paragraph>
                     </div>
                     <div class="p-6 flex flex-col items-center text-center border-b md:border-b-0 shadow-lg">
                         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
                             <i class="pi pi-envelope text-2xl text-gray-800"></i>
                         </div>
-                        <Heading3 class="font-bold text-xl mb-2">Email</Heading3>
+                        <Heading3 class="font-bold text-xl mb-2">{{ $t('contact.email') }}</Heading3>
                         <paragraph class="text-gray-700">{{ getCurrentCountry.email }}</paragraph>
                     </div>
                     <div class="p-6 flex flex-col items-center text-center md:border-r shadow-lg">
                         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
                             <i class="pi pi-map-marker text-2xl text-gray-800"></i>
                         </div>
-                        <Heading3 class="font-bold text-xl mb-2">Location</Heading3>
+                        <Heading3 class="font-bold text-xl mb-2">{{ $t('contact.location') }}</Heading3>
                         <paragraph class="text-gray-700 text-center">{{ getCurrentCountry.address }}</paragraph>
                     </div>
                     <!-- Working Hours -->
@@ -37,14 +37,14 @@
                         <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-3">
                             <i class="pi pi-clock text-2xl text-gray-800"></i>
                         </div>
-                        <Heading3 class="font-bold text-xl mb-2">Working Hours</Heading3>
+                        <Heading3 class="font-bold text-xl mb-2">{{ $t('contact.working_hour') }}</Heading3>
                         <paragraph class="text-gray-700 text-center">{{ getCurrentCountry.workingHours }}</paragraph>
                     </div>
                 </div>
             </div>
             <div class="bg-white">
                 <div class=" bg-gray-700 text-center py-4">
-                    <Heading3 class="text-xl text-white">Map</Heading3>
+                    <Heading3 class="text-xl text-white">{{ $t('contact.map') }}</Heading3>
                 </div>
                 <div class="h-auto">
                     <iframe :src="getCurrentCountry.mapUrl" width="600" height="347" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
