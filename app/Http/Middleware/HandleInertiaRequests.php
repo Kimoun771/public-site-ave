@@ -9,6 +9,7 @@ use App\Settings\InspectionSettings;
 use App\Settings\TrainingSettings;
 use App\Settings\HomeSettings;
 use App\Settings\ContactSettings;
+use App\Settings\AboutSettings;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -93,7 +94,7 @@ class HandleInertiaRequests extends Middleware
             'service' =>  app(ServiceSetting::class)->getFormattedSettings(),
             'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
             'training' => app(TrainingSettings::class)->getFormattedSettings(),
-            'about' => 'About',
+            'about' => app(AboutSettings::class)->getFormattedSettings(),
             'contact' => app(ContactSettings::class)->getFormattedSettings(),
             default => [
                 'home' => app(HomeSettings::class)->getFormattedSettings(),

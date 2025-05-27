@@ -1,66 +1,53 @@
 <script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import Vision from '@/Components/Vision.vue';
-import WhoWeAre from '@/Components/WhoWeAre.vue';
 import HeroImage from '@/Components/HeroImage.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
+import { ref } from 'vue';
 
-interface HeroImageProps {
-  backgroundImage: string;
+interface ImageDescription {
+  image: string;
   title: string;
+  alt: string;
   description: string;
 }
 
-interface SectionProps {
-  img: string;
-  title: string;
-  imageAlt: string;
-  description: string;
+interface AboutData {
+    image_des: ImageDescription[];
+    hero_image: string;
+    title: string;
+    description: string;
+    name: string;
 }
 
-const heroImage: HeroImageProps = {
-  backgroundImage: 'https://www.bsigroup.com/globalassets/localfiles/1400x585/amazon-river-1400x585-reversed.jpg',
-  title: 'Ensuring Quality & Compliance Through Expert Inspections!',
-  description: 'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.'
-};
-
-const visionSection: SectionProps = {
-  img: 'https://www.vecert.com/images/665dcccc9499e_600w.png',
-  title: 'Ensuring Compliance and Safety',
-  imageAlt: 'Compliance and Safety Image',
-  description: 'At VE Cert, we specialize in certification, inspection, and training services, ensuring businesses meet global compliance and safety standards. Our goal is to enhance credibility, efficiency, and operational excellence through trusted and transparent certification solutions.'
-};
-
-const whoWeAreSection: SectionProps = {
-  img: 'https://www.vecert.com/images/665dcccc9499e_600w.png',
-  title: 'Who We Are',
-  imageAlt: 'Who We Are',
-  description: 'VE Cert provides certification, inspection, and consulting services to ensure compliance with international standards.'
-};
+const props = defineProps({
+    settings: {
+        type: Object as () => AboutData,
+        required: true
+    },
+  })
+  const customAbout = ref<ImageDescription[]>(props.settings.image_des || []);
 </script>
 
 <template>
-  <GeneralLayout laravel-version="" php-version="">
+  <GeneralLayout>
     <HeroImage
-      :background-image="heroImage.backgroundImage"
-      :title="heroImage.title"
-      :description="heroImage.description"
+      :background-image="`/uploads/`+props.settings.hero_image"
+      :title="props.settings?.title"
+      :description="props.settings?.description"
     />
-    <Heading1 class="text-center mt-10">Welcome to About Page</Heading1>
+    <Heading1 class="text-center mt-10">{{props.settings?.name}}</Heading1>
 
     <div class="lg:px-24 md:px-4 px-6 lg:py-4">
-      <Vision
-        :img="visionSection.img"
-        :title="visionSection.title"
-        :imageAlt="visionSection.imageAlt"
-        :description="visionSection.description"
-      />
-      <WhoWeAre
-        :img="whoWeAreSection.img"
-        :title="whoWeAreSection.title"
-        :imageAlt="whoWeAreSection.imageAlt"
-        :description="whoWeAreSection.description"
-      />
+      <template v-for="(item, index) in customAbout" :key="index">
+        <Vision
+          :reverse="index % 2 === 1"
+          :img="`/uploads/`+item.image"
+          :title="item.title"
+          :imageAlt="item.title"
+          :description="item.description"
+        />
+      </template>
     </div>
   </GeneralLayout>
 </template>
