@@ -2,62 +2,55 @@
 
 use Spatie\LaravelSettings\Migrations\SettingsMigration;
 
-return new class extends SettingsMigration
-{
+return new class extends SettingsMigration {
     public function up(): void
     {
-        $content = <<<EOT
-        # Overview :
-
-        In the 1960s, the text suddenly **became** known beyond the **professional** circle of typesetters and layout designers when it was used for Letraset sheets (adhesive letters on transparent film, popular until the 1980s) Versions of the text were subsequently included in DTP programmes such as PageMaker etc.
-
-        There is now an **abundance** of readable dummy texts. These are usually used when a text is required purely to fill a space. These alternatives to the classic Lorem Ipsum texts are often amusing and tell short, funny or **nonsensical** stories.
-
-        # We use your information to :
-        * Digital Marketing Solutions for Tomorrow
-        * Our Talented & Experienced Marketing Agency
-        * Create your own skin to match your brand
-        * Digital Marketing Solutions for Tomorrow
-        * Create your own skin to match your brand
-        * Our Talented & Experienced [Marketing Agency](https://github.com/abdessamadbettal)
-        EOT;
-
-        $this->migrator->add('about.visitors_number', 40300);
-        $this->migrator->add('about.visitors_text', [
-            'en' => 'Happy Visitors',
-            'fr' => 'Visiteurs Heureux',
-            'es' => 'Visitantes Felices'
-        ]);
-
-        $this->migrator->add('about.visitors_icon', 'users');
-
-        $this->migrator->add('about.tours_number', 531);
-        $this->migrator->add('about.tours_text', [
-            'en' => 'Tours Completed',
-            'fr' => 'Visites Terminées',
-            'es' => 'Tours Completados'
-        ]);
-
-        $this->migrator->add('about.tours_icon', 'globe');
-
-        $this->migrator->add('about.content', [
-            'en' => $content,
-            'fr' => $content,
-            'es' => $content
-        ]);
-
-        // have reviews
-        $this->migrator->add('about.have_reviews', true);
-
+        $this->migrator->add(
+            'about.hero_image',
+            '/assets/images/about/banner.jpg'
+        );
         $this->migrator->add('about.title', [
-            'en' => 'Travel in Agency Laravel Starter World',
-            'fr' => 'Voyage dans le monde de l\'agence Laravel Starter',
-            'es' => 'Viaje en la agencia Laravel Starter World'
+            'en' => 'Ensuring Quality & Compliance Through Expert Inspections!',
+            'km' =>
+                'ការធានាគុណភាព និងការគោរពតាមបទបញ្ជា តាមរយៈការត្រួតពិនិត្យដោយអ្នកជំនាញ!',
         ]);
-        $this->migrator->add('about.desc', [
-            'en' => 'World Best Travel in Agency Laravel Starter',
-            'fr' => 'Meilleure agence de voyage au monde',
-            'es' => 'Mejor agencia de viajes del mundo'
+        $this->migrator->add('about.description', [
+            'en' =>
+                'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.',
+            'km' =>
+                'យើងផ្តល់សេវាកម្មត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ដោយឯករាជ្យ ដើម្បីជួយអាជីវកម្មឱ្យបំពេញតាមស្តង់ដារឧស្សាហកម្ម និងលក្ខខណ្ឌផ្នែកនិតិវិធី។',
+        ]);
+        $this->migrator->add('about.name', [
+            'en' => 'About Us',
+            'km' => 'អំពីពួកយើង',
+        ]);
+        $this->migrator->add('about.image_des', [
+            [
+                'image' => '/assets/images/about/chandan.jpg',
+                'title' => [
+                    'en' => 'Ensuring Compliance and Safety',
+                    'km' => 'ធានាឱ្យមានការអនុលោមតាម និងសុវត្ថិភាព',
+                ],
+                'description' => [
+                    'en' =>
+                        'At VE Cert, we specialize in certification, inspection, and training services, ensuring businesses meet global compliance and safety standards. Our goal is to enhance credibility, efficiency, and operational excellence through trusted and transparent certification solutions.',
+                    'km' =>
+                        'នៅ VE Cert យើងមានជំនាញពិសេសក្នុងការផ្ដល់សេវាកម្មវិញ្ញាបនបត្រ ការត្រួតពិនិត្យ និងការបណ្តុះបណ្តាល ដើម្បីធានាថា អាជីវកម្មអាចបំពេញតាមស្ដង់ដារអន្ដរជាតិទាក់ទងនឹងការអនុលោមតាម និងសុវត្ថិភាព។ គោលបំណងរបស់យើងគឺ ដើម្បីបង្កើនឥទ្ធិពល ភាពមានប្រសិទ្ធភាព និងលទ្ធផលប្រតិបត្តិការល្អ ដោយឧបត្ថម្ភដោយដំណោះស្រាយវិញ្ញាបនបត្រដែលមានការជឿជាក់ និងភាពតម្លាភាព',
+                ],
+            ],
+            [
+                'image' => '/assets/images/about/chandan.jpg',
+                'title' => [
+                    'en' => 'Who We Are',
+                    'km' => 'អំពីពួកយើង',
+                ],
+                'description' => [
+                    'en' =>
+                        'VE Cert provides certification, inspection, and consulting services to ensure compliance with international standards.',
+                    'km' =>
+                        'VE Cert ផ្ដល់សេវាកម្មវិញ្ញាបនបត្រ ការត្រួតពិនិត្យ និងការពិគ្រោះយោបល់ ដើម្បីធានាថាអនុវត្តតាមស្តង់ដារអន្ដរជាតិ',
+                ],
+            ],
         ]);
     }
 };

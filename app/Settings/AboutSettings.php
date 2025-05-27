@@ -2,49 +2,119 @@
 
 namespace App\Settings;
 
-use App\Helpers\ParsedownHelper;
 use Spatie\LaravelSettings\Settings;
-use Spatie\Translatable\HasTranslations;
 
 class AboutSettings extends Settings
 {
-    use HasTranslations;
+    public string $hero_image = '';
+    public array $title = [];
+    public array $description = [];
+    public array $name = [];
+    public array $image_des = [];
 
-    public array $title;
-    public array $desc;
-    public array $content;
-    public int $visitors_number;
-    public array $visitors_text;
-    public string $visitors_icon;
-
-    public int $tours_number;
-    public array $tours_text;
-    public string $tours_icon;
-
-    protected  $translatable = [
-        'title',
-        'content',
-        'visitors_text',
-        'tours_text',
-    ];
+    private array $translatable = ['title', 'description', 'name'];
 
     public static function group(): string
     {
         return 'about';
     }
 
-    public function getFormattedSettings(): array
+    public function getFormattedSettings(?string $locale = null): array
     {
+        $locale ??= app()->getLocale();
+
         return [
-            'title' => $this->title[app()->getLocale()] ?? '',
-            'desc' => $this->desc[app()->getLocale()] ?? '',
-            'content' => ParsedownHelper::parse($this->content[app()->getLocale()]) ?? '',
-            'visitors_number' => $this->visitors_number,
-            'visitors_text' => $this->visitors_text[app()->getLocale()] ?? '',
-            'visitors_icon' => $this->visitors_icon,
-            'tours_number' => $this->tours_number,
-            'tours_text' => $this->tours_text[app()->getLocale()] ?? '',
-            'tours_icon' => $this->tours_icon,
+            'hero_image' => $this->getHeroImageUrl(),
+            'title' => $this->getTranslation($this->title, $locale),
+            'description' => $this->getTranslation($this->description, $locale),
+            'name' => $this->getTranslation($this->name, $locale),
+            'image_des' => $this->getFormattedImageDescriptions($locale),
         ];
+    }
+
+    public function getImageDescription(
+        int $index,
+        ?string $locale = null
+    ): ?array {
+        if (!isset($this->image_des[$index])) {
+            return null;
+        }
+
+        $locale ??= app()->getLocale();
+        $item = $this->image_des[$index];
+
+        return [
+            'image' => $item['image'] ?? '',
+            'title' => $this->getTranslation($item['title'] ?? [], $locale),
+            'alt' => $this->getTranslation($item['alt'] ?? [], $locale),
+            'description' => $this->getTranslation(
+                $item['description'] ?? [],
+                $locale
+            ),
+        ];
+    }
+
+    public function getHeroImageUrl(): string
+    {
+        return $this->hero_image ?? '';
+    }
+
+    public function setTranslations(
+        string $attribute,
+        array $translations
+    ): void {
+        if (in_array($attribute, $this->translatable, true)) {
+            $this->$attribute = $translations;
+        }
+    }
+
+    public function getAvailableLocales(): array
+    {
+        $locales = [];
+
+        foreach ($this->translatable as $attribute) {
+            if (is_array($this->$attribute)) {
+                $locales = array_merge($locales, array_keys($this->$attribute));
+            }
+        }
+
+        return array_unique($locales);
+    }
+
+    public function hasTranslation(string $attribute, string $locale): bool
+    {
+        return !empty($this->$attribute[$locale] ?? '');
+    }
+
+    private function getFormattedImageDescriptions(string $locale): array
+    {
+        return array_map(
+            fn($item) => [
+                'image' => $item['image'] ?? '',
+                'title' => $this->getTranslation($item['title'] ?? [], $locale),
+                'alt' => $this->getTranslation($item['alt'] ?? [], $locale),
+                'description' => $this->getTranslation(
+                    $item['description'] ?? [],
+                    $locale
+                ),
+            ],
+            $this->image_des
+        );
+    }
+
+    private function getTranslation(
+        $value,
+        string $locale,
+        string $fallback = 'en'
+    ): string {
+        if (is_string($value)) {
+            return $value;
+        }
+
+        if (is_array($value)) {
+            return $value[$locale] ?? ($value[$fallback] ?? '');
+        }
+
+        return '';
     }
 }
