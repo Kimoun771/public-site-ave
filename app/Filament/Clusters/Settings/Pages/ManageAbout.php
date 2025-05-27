@@ -5,80 +5,126 @@ namespace App\Filament\Clusters\Settings\Pages;
 use App\Filament\Clusters\Settings;
 use App\Settings\AboutSettings;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Pages\SettingsPage;
 use Mvenghaus\FilamentPluginTranslatableInline\Forms\Components\TranslatableContainer;
 
 class ManageAbout extends SettingsPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-light-bulb';
-
+    protected static ?string $navigationIcon = 'heroicon-o-information-circle';
     protected static string $settings = AboutSettings::class;
-
     protected static ?string $cluster = Settings::class;
+    protected static ?string $title = 'About Settings';
+    protected static ?string $navigationLabel = 'Manage About';
 
     public function form(Form $form): Form
     {
-        return $form
+        return $form->schema([
+            $this->getHeroSection(),
+            $this->getContentSection(),
+        ]);
+    }
+
+    private function getHeroSection(): Forms\Components\Section
+    {
+        return Forms\Components\Section::make('Hero Section')
             ->schema([
+                $this->getImageUploadField('hero_image', 'Hero Banner Image'),
+                $this->getTranslatableTextInput('title', 'Page Title'),
+                $this->getTranslatableTextarea(
+                    'description',
+                    'Page Description',
+                    3
+                ),
+            ])
+            ->columns(1);
+    }
 
-                Forms\Components\Section::make('The About Page')->schema([
-                    TranslatableContainer::make(
-                        Forms\Components\TextInput::make('title')
-                            ->required(),
-                    )
-                        ->columnSpanFull()
-                        ->requiredLocales(['en', 'fr', 'es']),
-                    TranslatableContainer::make(
-                        Forms\Components\TextInput::make('desc')
-                            ->required(),
-                    )
-                        ->columnSpanFull()
-                        ->requiredLocales(['en', 'fr', 'es']),
-                    TranslatableContainer::make(
-                        Forms\Components\MarkdownEditor::make('content')
-                        ->disableToolbarButtons(['table'])
-                            ->columnSpanFull()
-                            ->required(),
-                    )
-                        ->columnSpanFull()
-                        ->requiredLocales(['en', 'fr', 'es']),
-                ])->columns(2),
+    private function getContentSection(): Forms\Components\Section
+    {
+        return Forms\Components\Section::make('Content Sections')
+            ->schema([
+                $this->getTranslatableTextInput('name', 'Section Name'),
+                Forms\Components\Repeater::make('image_des')
+                    ->label('Image Descriptions')
+                    ->schema([
+                        $this->getImageUploadField('image', 'Section Image'),
+                        $this->getTranslatableTextInput(
+                            'title',
+                            'Section Title'
+                        ),
+                        $this->getTranslatableTextarea(
+                            'description',
+                            'Section Description',
+                            4
+                        ),
+                    ])
+                    ->columns(1)
+                    ->addActionLabel('Add Content Section')
+                    ->defaultItems(0)
+                    ->minItems(0)
+                    ->maxItems(10)
+                    ->deletable(false)
+                    ->reorderable(false)
+                    ->columnSpanFull(),
+            ])
+            ->columns(1)
+            ->collapsible();
+    }
 
-                Forms\Components\Section::make('Visitors')->schema([
-                    Forms\Components\TextInput::make('visitors_number')
-                        ->label('Number of visitors')
-                        ->required(),
-                    TranslatableContainer::make(
-                        Forms\Components\TextInput::make('visitors_text')
-                            ->label('Visitors text')
-                            ->required(),
-                    )
-                        ->columnSpanFull()
-                        ->requiredLocales(['en', 'fr', 'es']),
-                    Forms\Components\TextInput::make('visitors_icon')
-                        ->placeholder('Pls use feathericons class')
-                        ->label('Visitors icon (feathericons)')
-                        ->required(),
-                ])->columns(2),
+    private function getImageUploadField(
+        string $name,
+        string $label
+    ): FileUpload {
+        return FileUpload::make($name)
+            ->label($label)
+            ->image()
+            ->disk('public')
+            ->imagePreviewHeight(250)
+            ->previewable(true)
+            ->downloadable()
+            ->imageEditor()
+            ->loadingIndicatorPosition('left')
+            ->removeUploadedFileButtonPosition('right')
+            ->uploadProgressIndicatorPosition('left')
+            ->imageResizeMode('contain')
+            ->imageResizeTargetWidth(1200)
+            ->imageResizeTargetHeight(630)
+            ->visibility('public')
+            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+            ->maxSize(2048) // 2MB max
+            ->columnSpanFull()
+            ->helperText('Recommended size: 1200x630px. Max file size: 2MB.');
+    }
 
-                Forms\Components\Section::make('Tours')->schema([
-                    Forms\Components\TextInput::make('tours_number')
-                        ->label('Number of tours')
-                        ->required(),
-                    TranslatableContainer::make(
-                        Forms\Components\TextInput::make('tours_text')
-                            ->label('Tours text')
-                            ->required(),
-                    )
-                        ->columnSpanFull()
-                        ->requiredLocales(['en', 'fr', 'es']),
-                    Forms\Components\TextInput::make('tours_icon')
-                        ->placeholder('Pls use feathericons class')
-                        ->label('Tours icon (feathericons)')
-                        ->required(),
-                ])->columns(2),
+    private function getTranslatableTextInput(
+        string $name,
+        string $label
+    ): TranslatableContainer {
+        return TranslatableContainer::make(
+            Forms\Components\TextInput::make($name)
+                ->label($label)
+                ->required()
+                ->maxLength(255)
+        )
+            ->columnSpanFull()
+            ->requiredLocales(['en', 'km']);
+    }
 
-            ]);
+    private function getTranslatableTextarea(
+        string $name,
+        string $label,
+        int $rows = 3
+    ): TranslatableContainer {
+        return TranslatableContainer::make(
+            Forms\Components\Textarea::make($name)
+                ->label($label)
+                ->required()
+                ->maxLength(1000)
+                ->rows($rows)
+        )
+            ->columnSpanFull()
+            ->requiredLocales(['en', 'km']);
     }
 }
