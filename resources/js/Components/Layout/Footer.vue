@@ -54,12 +54,12 @@
                     />
                     <Button
                         type="submit"
-                        :disabled="isLoading || !form.recaptcha" 
-                        unstyled 
-                        :pt="{ 
-                            root: { 
-                                class: `w-full bg-blue-500 text-white py-2 rounded items-center ${!(isLoading || !form.recaptcha) ? 'hover:bg-blue-600 cursor-pointer' : 'opacity-70 cursor-not-allowed'}` 
-                            } 
+                        :disabled="isLoading || !form.recaptcha"
+                        unstyled
+                        :pt="{
+                            root: {
+                                class: `w-full bg-blue-500 text-white py-2 rounded items-center ${!(isLoading || !form.recaptcha) ? 'hover:bg-blue-600 cursor-pointer' : 'opacity-70 cursor-not-allowed'}`
+                            }
                         }"
                     >
                         <i :class="isLoading ? 'pi pi-spinner pi-spin text-white text-xl mr-2' : 'pi pi-send text-white text-xl mr-2'"></i>
@@ -131,15 +131,34 @@ const handleLoadCallback = (response: unknown) => {
 
 const submitForm = async () => {
     isLoading.value = true;
-    
+
     try {
         const response = await axios.post('/contact-submit', form.value);
         form.value = { name: '', email: '', message: '', recaptcha: null};
+        alert('Form submitted successfully!');
     } catch (error) {
+        if (error.response) {
+            console.error('Full error response:', error.response);
+
+            if (error.response.status === 422) {
+                const errors = error.response.data.errors;
+                const message = error.response.data.message || 'Validation failed.';
+
+                if (errors) {
+                    alert('Validation failed: ' + JSON.stringify(errors));
+                } else {
+                    alert('Validation failed: ' + message);
+                }
+
+            } else {
+                alert('Error submitting form: ' + error.response.statusText);
+            }
+        } else {
+            console.error('Error submitting form:', error);
+        }
     } finally {
         isLoading.value = false;
     }
 };
 
 </script>
-
