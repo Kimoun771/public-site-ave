@@ -61,7 +61,7 @@ const slideShow = computed(() => {
   }));
 });
 const vecert = computed(() => props.settings?.home?.vecert);
-const settingsServiceData = computed(() => props.settings?.service_homepage);
+const settingsServiceData = computed(() => props.settings?.service_homepage.services);
 const vecertDetail = computed(() => props.settings?.home?.vecert_image_des);
 const ourClient = computed(() => props.settings?.home?.our_client_image_des);
 const services = computed(() => props.settings?.service_homepage);

@@ -8,7 +8,7 @@
         >
             <div class="w-full md:w-1/4 flex-shrink-0">
                 <LazyImage
-                    :src="service.imageUrl"
+                    :src="'/uploads/'+service.imageUrl"
                     :alt="service.title"
                     class="w-full h-auto rounded-md object-cover"
                 />
@@ -18,7 +18,7 @@
                     {{ service.title }}
                 </Heading2>
                 <Paragraph class="text-gray-800 text-sm">
-                    {{ truncate(service.description, 250) }}
+                    {{ truncate(service.desc, 250) }}
                 </Paragraph>
             </div>
         </div>
@@ -26,7 +26,7 @@
             v-if="isModalOpen"
             v-model="isModalOpen"
             :title="selectedService?.title"
-            :des="selectedService?.description"
+            :des="selectedService?.desc"
             :image="selectedService?.imageUrl"
         />
     </div>
@@ -40,7 +40,7 @@ import Popup from "@/Components/Popup.vue";
 interface Service {
     id: number;
     title: string;
-    description: string;
+    desc: string;
     imageUrl: string;
 }
 
