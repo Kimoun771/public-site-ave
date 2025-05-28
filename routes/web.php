@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\MailController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -46,6 +47,7 @@ Route::group(
             Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         });
+        Route::post('/contact-submit', [MailController::class, 'sendMail'])->name('contact.submit');
 
         require __DIR__ . '/auth.php';
     }
