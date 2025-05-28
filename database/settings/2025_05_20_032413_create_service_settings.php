@@ -6,6 +6,17 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
+        $this->migrator->add('service.hero', [
+            'title' => [
+                'en' => 'Ensuring Quality & Compliance Through Expert Inspections!',
+                'km' => 'ធានាថាគុណភាព និងការអនុវត្តតាមច្បាប់តាមរយៈការត្រួតពិនិត្យជំនាញ!',
+            ],
+            'description' => [
+                'en' => 'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.',
+                'km' => 'យើងផ្តល់សេវាការត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ឯករាជ្យដើម្បីជួយអាជីវកម្មបំពេញស្តង់ដារឧស្សាហកម្ម និងតម្រូវការអនុវត្តតាមច្បាប់។',
+            ],
+            'image' => 'images/hero.jpg',
+        ]);
         $this->migrator->add('service.services', [
             [
                 'name' => ['en' => 'Quality Management System', 'km' => 'ប្រព័ន្ធគ្រប់គ្រងគុណភាព'],
