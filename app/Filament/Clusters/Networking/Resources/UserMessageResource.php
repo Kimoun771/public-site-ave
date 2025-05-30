@@ -5,7 +5,7 @@ namespace App\Filament\Clusters\Networking\Resources;
 use App\Filament\Clusters\Networking;
 use App\Filament\Clusters\Networking\Resources\UserMessageResource\Pages;
 use App\Filament\Clusters\Networking\Resources\UserMessageResource\RelationManagers;
-use App\Models\UserMessage;
+use App\Models\Contact;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserMessageResource extends Resource
 {
-    protected static ?string $model = UserMessage::class;
+    protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
-    protected static ?string $navigationLabel = 'User Messages';
+    protected static ?string $navigationLabel = 'Contact';
 
-    protected static ?string $modelLabel = 'User Message';
+    protected static ?string $modelLabel = 'Contact';
 
     protected static ?int $navigationSort = 6;
 
