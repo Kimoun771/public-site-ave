@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PostSeeder::class,
             CommentSeeder::class,
+            CountrySeeder::class,
             // CustomFieldSeeder::class,
             // FaqSeeder::class,
             // ReviewSeeder::class,
