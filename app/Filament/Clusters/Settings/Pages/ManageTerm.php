@@ -16,6 +16,10 @@ class ManageTerm extends SettingsPage
     protected static string $settings = TermSettings::class;
 
     protected static ?string $cluster = Settings::class;
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public function form(Form $form): Form
     {
