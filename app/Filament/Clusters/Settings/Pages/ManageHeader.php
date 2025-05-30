@@ -24,6 +24,10 @@ class ManageHeader extends SettingsPage
     protected static string $settings = HeaderSettings::class;
 
     protected static ?string $cluster = Settings::class;
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public function form(Form $form): Form
     {
