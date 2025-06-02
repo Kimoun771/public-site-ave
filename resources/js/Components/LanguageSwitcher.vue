@@ -38,16 +38,14 @@
 
 <script setup>
 import { computed } from 'vue';
-import { router as inertiaRouter } from '@inertiajs/vue3';
 import Dropdown from '@/Components/Forms/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
-import i18n, { setLocale } from '@/i18n';
 
 const props = defineProps(['currentLocale']);
 
 const languages = [
-    { code: 'en', name: 'English', flag: 'https://flagcdn.com/w20/gb.png' },
-    { code: 'km', name: 'Khmer', flag: 'https://flagcdn.com/w20/kh.png' },
+    { code: 'en', nameKey: 'home.language_english', flag: 'https://flagcdn.com/w20/gb.png', url: '/' },
+    { code: 'km', nameKey: 'home.language_khmer', flag: 'https://flagcdn.com/w20/kh.png', url: '/km' },
 ];
 
 const currentLanguage = computed(() => {
@@ -56,25 +54,21 @@ const currentLanguage = computed(() => {
 
 const getURL = (lang) => {
     const currentUrl = new URL(window.location.href);
-    return currentUrl.pathname.replace(`/${props.currentLocale}`, `/${lang.code}`);
+    const pathSegments = currentUrl.pathname.split('/').filter(Boolean);
+
+    if (pathSegments[0] === props.currentLocale) {
+        pathSegments.shift();
+    }
+
+    if (lang.code === 'en') {
+        return '/en/' + pathSegments.join('/');
+    }
+
+    return `/${lang.code}/${pathSegments.join('/')}`;
 };
 
 async function changeLanguage(lang) {
-    const currentUrl = new URL(window.location.href);
-
-    // Replace the locale in the URL
-    const newUrl = currentUrl.pathname.replace(`/${props.currentLocale}`, `/${lang.code}`);
-
+    const newUrl = getURL(lang);
     window.location.href = newUrl;
-
-    // await inertiaRouter.visit(newUrl, {
-    //     preserveScroll: true,
-    //     replace: true, // Force a reload of props
-    //     onFinish: () => {
-    //         Ziggy.locale = lang.code;
-    //     },
-    // });
-
-    // setLocale(lang.code);
 }
 </script>
