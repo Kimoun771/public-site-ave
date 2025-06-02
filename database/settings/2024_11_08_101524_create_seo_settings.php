@@ -6,125 +6,176 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('seo.meta_robots', 'index, follow');
-        $this->migrator->add('seo.meta_googlebot', 'index, follow');
-        $this->migrator->add('seo.meta_bingbot', 'index, follow');
-        $this->migrator->add('seo.meta_title', [
-            'en' => 'Laravel Starter',
-            'fr' => 'Monde Pour Vous',
-            'es' => 'Mundo Para Ti'
-        ]);
-        $this->migrator->add('seo.meta_description', [
-            'en' => 'This is a description of the site.',
-            'fr' => 'Ceci est une description du site.',
-            'es' => 'Esta es una descripción del sitio.'
-        ]);
-        $this->migrator->add('seo.meta_keywords', [
-            'en' => 'world, for, you',
-            'fr' => 'monde, pour, vous',
-            'es' => 'mundo, para, ti'
-        ]);
-        $this->migrator->add('seo.meta_author', [
-            'en' => 'Laravel Starter',
-            'fr' => 'Monde Pour Vous',
-            'es' => 'Mundo Para Ti'
-        ]);
-        $this->migrator->add('seo.og_title', [
-            'en' => 'Laravel Starter',
-            'fr' => 'Monde Pour Vous',
-            'es' => 'Mundo Para Ti'
-        ]);
-        $this->migrator->add('seo.og_description', [
-            'en' => 'This is a description of the site.',
-            'fr' => 'Ceci est une description du site.',
-            'es' => 'Esta es una descripción del sitio.'
-        ]);
-        $this->migrator->add('seo.tw_title', [
-            'en' => 'Laravel Starter',
-            'fr' => 'Monde Pour Vous',
-            'es' => 'Mundo Para Ti'
-        ]);
-        $this->migrator->add('seo.tw_description', [
-            'en' => 'This is a description of the site.',
-            'fr' => 'Ceci est une description du site.',
-            'es' => 'Esta es una descripción del sitio.'
-        ]);
-
-        $this->migrator->add('seo.json_ld', [
-            'en' => [
-                '@context' => 'https://schema.org',
-                '@type' => 'Organization',
-                'url' => 'https://laravel-starter.test',
-                'logo' => 'https://laravel-starter.test/logo.png',
-                'contactPoint' => [
-                    [
-                        '@type' => 'ContactPoint',
-                        'telephone' => '+1-401-555-1212',
-                        'contactType' => 'Customer service',
-                        'areaServed' => 'US',
-                        'availableLanguage' => 'English, Spanish, French'
-                    ]
+        $pages = [
+            'home' => [
+                'url' => [
+                    'en' => '/',
+                    'km' => '/km',
                 ],
-                'sameAs' => [
-                    'https://www.facebook.com/your-profile',
-                    'https://www.twitter.com/your-profile',
-                    'https://www.linkedin.com/in/yourprofile'
-                ]
+                'meta_title' => [
+                    'en' => 'Laravel Starter',
+                    'km' => 'កម្មវិធីចាប់ផ្តើម Laravel',
+                ],
+                'meta_description' => [
+                    'en' => 'This is a description of the site.',
+                    'km' => 'នេះគឺជាការពិពណ៌នាអំពីគេហទំព័រ។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'world, for, you',
+                    'km' => 'ពិភពលោក, សម្រាប់, អ្នក',
+                ],
+                'og_title' => [
+                    'en' => 'Laravel Starter',
+                    'km' => 'កម្មវិធីចាប់ផ្តើម Laravel',
+                ],
+                'og_description' => [
+                    'en' => 'This is a description of the site.',
+                    'km' => 'នេះគឺជាការពិពណ៌នាអំពីគេហទំព័រ។',
+                ],
+                'og_image' => 'seo/home-og-image.png',
             ],
-            'fr' => [
-                '@context' => 'https://schema.org',
-                '@type' => 'Organization',
-                'url' => 'https://monde-pour-vous.test',
-                'logo' => 'https://monde-pour-vous.test/logo.png',
-                'contactPoint' => [
-                    [
-                        '@type' => 'ContactPoint',
-                        'telephone' => '+1-401-555-1212',
-                        'contactType' => 'Customer service',
-                        'areaServed' => 'US',
-                        'availableLanguage' => 'English, Spanish, French'
-                    ]
+            'service' => [
+                'url' => [
+                    'en' => '/services',
+                    'km' => '/km/services',
                 ],
-                'sameAs' => [
-                    'https://www.facebook.com/your-profile',
-                    'https://www.twitter.com/your-profile',
-                    'https://www.linkedin.com/in/yourprofile'
-                ]
+                'meta_title' => [
+                    'en' => 'Our Services',
+                    'km' => 'សេវាកម្មរបស់យើង',
+                ],
+                'meta_description' => [
+                    'en' => 'Discover our range of services.',
+                    'km' => 'ស្វែងយល់ពីជួរសេវាកម្មរបស់យើង។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'services, offerings',
+                    'km' => 'សេវាកម្ម, ការផ្តល់ជូន',
+                ],
+                'og_title' => [
+                    'en' => 'Our Services',
+                    'km' => 'សេវាកម្មរបស់យើង',
+                ],
+                'og_description' => [
+                    'en' => 'Discover our range of services.',
+                    'km' => 'ស្វែងយល់ពីជួរសេវាកម្មរបស់យើង។',
+                ],
+                'og_image' => 'seo/service-og-image.png',
             ],
-            'es' => [
-                '@context' => 'https://schema.org',
-                '@type' => 'Organization',
-                'url' => 'https://mundo-para-ti.test',
-                'logo' => 'https://mundo-para-ti.test/logo.png',
-                'contactPoint' => [
-                    [
-                        '@type' => 'ContactPoint',
-                        'telephone' => '+1-401-555-1212',
-                        'contactType' => 'Customer service',
-                        'areaServed' => 'US',
-                        'availableLanguage' => 'English, Spanish, French'
-                    ]
+            'inspection' => [
+                'url' => [
+                    'en' => '/inspection',
+                    'km' => '/km/inspection',
                 ],
-                'sameAs' => [
-                    'https://www.facebook.com/your-profile',
-                    'https://www.twitter.com/your-profile',
-                    'https://www.linkedin.com/in/yourprofile'
-                ]
-            ]
-        ]);
+                'meta_title' => [
+                    'en' => 'Inspection Services',
+                    'km' => 'សេវាកម្មត្រួតពិនិត្យ',
+                ],
+                'meta_description' => [
+                    'en' => 'Professional inspection services.',
+                    'km' => 'សេវាកម្មត្រួតពិនិត្យប្រកបដោយវិជ្ជាជីវៈ។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'inspection, quality',
+                    'km' => 'ការត្រួតពិនិត្យ, គុណភាព',
+                ],
+                'og_title' => [
+                    'en' => 'Inspection Services',
+                    'km' => 'សេវាកម្មត្រួតពិនិត្យ',
+                ],
+                'og_description' => [
+                    'en' => 'Professional inspection services.',
+                    'km' => 'សេវាកម្មត្រួតពិនិត្យប្រកបដោយវិជ្ជាជីវៈ។',
+                ],
+                'og_image' => 'seo/inspection-og-image.png',
+            ],
+            'training' => [
+                'url' => [
+                    'en' => '/training',
+                    'km' => '/km/training',
+                ],
+                'meta_title' => [
+                    'en' => 'Training Programs',
+                    'km' => 'កម្មវិធីបណ្តុះបណ្តាល',
+                ],
+                'meta_description' => [
+                    'en' => 'Explore our training programs.',
+                    'km' => 'ស្វែងយល់ពីកម្មវិធីបណ្តុះបណ្តាលរបស់យើង។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'training, education',
+                    'km' => 'ការបណ្តុះបណ្តាល, ការអប់រំ',
+                ],
+                'og_title' => [
+                    'en' => 'Training Programs',
+                    'km' => 'កម្មវិធីបណ្តុះបណ្តាល',
+                ],
+                'og_description' => [
+                    'en' => 'Explore our training programs.',
+                    'km' => 'ស្វែងយល់ពីកម្មវិធីបណ្តុះបណ្តាលរបស់យើង។',
+                ],
+                'og_image' => 'seo/training-og-image.png',
+            ],
+            'about' => [
+                'url' => [
+                    'en' => '/about',
+                    'km' => '/km/about',
+                ],
+                'meta_title' => [
+                    'en' => 'About Us',
+                    'km' => 'អំពីយើង',
+                ],
+                'meta_description' => [
+                    'en' => 'Learn more about our company.',
+                    'km' => 'ស្វែងយល់បន្ថែមអំពីក្រុមហ៊ុនរបស់យើង។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'about, company',
+                    'km' => 'អំពី, ក្រុមហ៊ុន',
+                ],
+                'og_title' => [
+                    'en' => 'About Us',
+                    'km' => 'អំពីយើង',
+                ],
+                'og_description' => [
+                    'en' => 'Learn more about our company.',
+                    'km' => 'ស្វែងយល់បន្ថែមអំពីក្រុមហ៊ុនរបស់យើង។',
+                ],
+                'og_image' => 'seo/about-og-image.png',
+            ],
+            'contact' => [
+                'url' => [
+                    'en' => '/contact',
+                    'km' => '/km/contact',
+                ],
+                'meta_title' => [
+                    'en' => 'Contact Us',
+                    'km' => 'ទាក់ទងមកយើង',
+                ],
+                'meta_description' => [
+                    'en' => 'Get in touch with us.',
+                    'km' => 'ទាក់ទងជាមួយយើង។',
+                ],
+                'meta_keywords' => [
+                    'en' => 'contact, support',
+                    'km' => 'ទំនាក់ទំនង, ការគាំទ្រ',
+                ],
+                'og_title' => [
+                    'en' => 'Contact Us',
+                    'km' => 'ទាក់ទងមកយើង',
+                ],
+                'og_description' => [
+                    'en' => 'Get in touch with us.',
+                    'km' => 'ទាក់ទងជាមួយយើង។',
+                ],
+                'og_image' => 'seo/contact-og-image.png',
+            ],
+        ];
 
-        $this->migrator->add('seo.canonical', 'https://laravel-starter.com');
+        $this->migrator->add('seo.pages', $pages);
+    }
 
-        $this->migrator->add('seo.twitter_card', 'summary_large_image');
-        $this->migrator->add('seo.twitter_site', '@laravel_starter');
-        $this->migrator->add('seo.twitter_creator', '@laravel_starter');
-        $this->migrator->add('seo.twitter_image', 'https://laravel-starter.test/logo.png');
-
-        $this->migrator->add('seo.og_type', 'website');
-        $this->migrator->add('seo.og_site_name', 'Laravel Starter');
-        $this->migrator->add('seo.og_image', 'https://laravel-starter.test/logo.png');
-        $this->migrator->add('seo.og_url', 'https://laravel-starter.test');
-
-
+    public function down(): void
+    {
+        $this->migrator->delete('seo.pages');
     }
 };

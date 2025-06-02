@@ -3,7 +3,8 @@ import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import ServicesList from '@/Components/ServicesList.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import HeroImage from '@/Components/HeroImage.vue';
-import { ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
+import SEOHead from '@/Components/SEOHead.vue';
 
 interface HeroSection {
     src: string;
@@ -21,23 +22,39 @@ interface ServiceSection {
     hero: HeroSection;
     services: Services[];
 }
- const props = defineProps({
+interface SeoSettings {
+    title: string;
+    description: string;
+    keywords: string;
+    canonical: string;
+    ogTitle: string;
+    ogDescription: string;
+    ogImage: string;
+}
+
+const props = defineProps({
     settings: {
-        type: Object as () => ServiceSection,
+        type: Object as PropType<{
+            service: ServiceSection;
+            seo: SeoSettings;
+        }>,
         required: true
     }
 });
-const { services , hero } = props.settings;
+
+const { services , hero } = props.settings.service;
+const seo = computed(() => props.settings?.seo);
 </script>
 
 <template>
     <GeneralLayout laravel-version="" php-version="">
+        <SEOHead :seo="seo" :default-title="'Our Services'" />
         <HeroImage
             :src="hero.src"
             :title="hero.title"
             :desc="hero.desc"
         />
-        <div class="container mx-auto px-2 py-8 lg:px-24">
+        <div class="container mx-auto  px-2 py-8 lg:px-24">
             <Heading1 class="text-center mb-10">
                 {{ $t('button.our_services') }}
             </Heading1>

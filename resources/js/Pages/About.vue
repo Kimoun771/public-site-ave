@@ -3,7 +3,8 @@ import GeneralLayout from '@/Layouts/GeneralLayout.vue';
 import Vision from '@/Components/Vision.vue';
 import HeroImage from '@/Components/HeroImage.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
-import { ref } from 'vue';
+import SEOHead from '@/Components/SEOHead.vue';
+import { ref, computed } from 'vue';
 
 interface ImageDescription {
   image: string;
@@ -12,31 +13,47 @@ interface ImageDescription {
   description: string;
 }
 
+interface SeoSettings {
+  title: string;
+  description: string;
+  keywords: string;
+  canonical: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+}
+
 interface AboutData {
-    image_des: ImageDescription[];
-    hero_image: string;
-    title: string;
-    description: string;
-    name: string;
+  image_des: ImageDescription[];
+  hero_image: string;
+  title: string;
+  description: string;
+  name: string;
 }
 
 const props = defineProps({
-    settings: {
-        type: Object as () => AboutData,
-        required: true
+  settings: {
+    type: Object as () => {
+      about: AboutData;
+      seo: SeoSettings;
     },
-  })
-  const customAbout = ref<ImageDescription[]>(props.settings.image_des || []);
+    required: true
+  },
+})
+
+const customAbout = ref<ImageDescription[]>(props.settings.about?.image_des || []);
+const seo = computed(() => props.settings.seo);
 </script>
 
 <template>
   <GeneralLayout>
+    <SEOHead :seo="seo" :default-title="'About Us'" />
     <HeroImage
-      :background-image="`/uploads/`+props.settings.hero_image"
-      :title="props.settings?.title"
-      :description="props.settings?.description"
+      :background-image="`/uploads/`+props.settings.about?.hero_image"
+      :title="props.settings.about?.title"
+      :description="props.settings.about?.description"
     />
-    <Heading1 class="text-center mt-10">{{props.settings?.name}}</Heading1>
+    <Heading1 class="text-center mt-10">{{props.settings.about?.name}}</Heading1>
 
     <div class="lg:px-24 md:px-4 px-6 lg:py-4">
       <template v-for="(item, index) in customAbout" :key="index">

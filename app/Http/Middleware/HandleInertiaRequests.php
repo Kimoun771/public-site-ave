@@ -10,11 +10,14 @@ use App\Settings\TrainingSettings;
 use App\Settings\HomeSettings;
 use App\Settings\ContactSettings;
 use App\Settings\AboutSettings;
+use App\Settings\SeoSettings;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 
 
 class HandleInertiaRequests extends Middleware
@@ -41,8 +44,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
+
+        return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user() ? UserResource::make($request->user()) : null,
                 'isLoggedIn' => $request->user() !== null,
@@ -64,7 +67,7 @@ class HandleInertiaRequests extends Middleware
             'dir' => LaravelLocalization::getCurrentLocaleDirection(),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-        ];
+        ]);
     }
     /**
      * The root template that is loaded on the first page visit.
@@ -72,31 +75,65 @@ class HandleInertiaRequests extends Middleware
      * @return string
      */
 
-     private function getCurrentDataSetting()
+     /**
+      * Get current page settings data.
+      *
+      * @return array
+      */
+     private function getCurrentDataSetting(): array
      {
-        // Get the current page URL
-        $currentUrl = url()->current();
-        // Parse the URL to extract the last segment
+        // Get the current page URL and path
+        $request = request();
+        $currentUrl = $request->url();
         $path = parse_url($currentUrl, PHP_URL_PATH);
-        $segments = explode('/', $path);
-        $lastSegment = end($segments);
 
-        // If there's a locale prefix like 'en', get the segment after it
-        if (in_array($lastSegment, array_keys(LaravelLocalization::getSupportedLocales()))) {
-            $previousSegment = prev($segments);
-            if ($previousSegment) {
-            $lastSegment = $previousSegment;
+        // Parse the URL to extract segments
+        $segments = explode('/', trim($path, '/'));
+
+        // Get the page identifier (last non-locale segment)
+        $pageIdentifier = '';
+        if (count($segments) > 0) {
+            $lastSegment = end($segments);
+
+            // If the last segment is a locale, use the segment before it
+            if (in_array($lastSegment, array_keys(LaravelLocalization::getSupportedLocales()))) {
+                $previousIndex = count($segments) - 2;
+                if ($previousIndex >= 0) {
+                    $pageIdentifier = $segments[$previousIndex];
+                }
+            } else {
+                $pageIdentifier = $lastSegment;
             }
         }
 
-        // Return the appropriate page based on the URL segment
-        return match($lastSegment) {
-            'service' =>  app(ServiceSetting::class)->getFormattedSettings(),
-            'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
-            'training' => app(TrainingSettings::class)->getFormattedSettings(),
-            'about' => app(AboutSettings::class)->getFormattedSettings(),
-            'contact' => app(ContactSettings::class)->getFormattedSettings(),
+
+        // Get SEO data for the current page
+        $seoData = app(SeoSettings::class)->getFormattedSettings();
+
+        // Return the appropriate page data based on the URL segment
+        return match($pageIdentifier) {
+            'service' => [
+                'service' => app(ServiceSetting::class)->getFormattedSettings(),
+                'seo' => $seoData,
+            ],
+            'inspection' => [
+                'inspection' => app(InspectionSettings::class)->getFormattedSettings(),
+                'seo' => $seoData,
+            ],
+            'training' => [
+                'training' => app(TrainingSettings::class)->getFormattedSettings(),
+                'seo' => $seoData,
+            ],
+            'about' => [
+                'about' => app(AboutSettings::class)->getFormattedSettings(),
+                'seo' => $seoData,
+            ],
+            'contact' => [
+                'contact' => app(ContactSettings::class)->getFormattedSettings(),
+                'seo' => $seoData,
+            ],
             default => [
+                'seo' => $seoData,
                 'home' => app(HomeSettings::class)->getFormattedSettings(),
                 'service_homepage' => app(
                     ServiceSetting::class

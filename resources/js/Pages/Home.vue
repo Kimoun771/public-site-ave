@@ -6,12 +6,14 @@ import CardCompanyOverview from '@/Components/CardCompanyOverview.vue';
 import TestimonialsSection from '@/Components/TestimonialsSection.vue';
 import ClientCarousel from '@/Components/SwiperImage.vue';
 import ServicesSection from '@/Components/Services.vue';
-import { ref , onMounted , computed} from 'vue';
+import { ref ,  computed} from 'vue';
 import CertificationBanner from '@/Components/CertificationBanner.vue';
 import Heading1 from '@/Components/Typography/Heading1.vue';
 import Paragraph from '@/Components/Typography/Paragraph.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
+import Container from '@/Components/Container.vue';
 import { Link } from '@inertiajs/vue3';
+import SEOHead from '@/Components/SEOHead.vue';
 
 interface VecertData {
   image: string;
@@ -31,14 +33,32 @@ interface VecertDetailItem {
   image: string;
 }
 
+interface SlideImageDes {
+  title: string;
+  description: string;
+  image: string;
+}
+
 interface HomeSettings {
   vecert: VecertData;
   vecert_image_des: VecertDetailItem[];
   our_client_image_des: ClientImageDes;
+  slide_image_des: SlideImageDes[];
+}
+
+interface SeoSettings {
+    title: string;
+    description: string;
+    keywords: string;
+    canonical: string;
+    ogTitle: string;
+    ogDescription: string;
+    ogImage: string;
 }
 
 interface Props {
   settings: {
+    seo: SeoSettings;
     home: HomeSettings;
     service_homepage: any;
   };
@@ -64,7 +84,7 @@ const vecert = computed(() => props.settings?.home?.vecert);
 const settingsServiceData = computed(() => props.settings?.service_homepage.services);
 const vecertDetail = computed(() => props.settings?.home?.vecert_image_des);
 const ourClient = computed(() => props.settings?.home?.our_client_image_des);
-const services = computed(() => props.settings?.service_homepage);
+const seo = computed(() => props.settings?.seo);
 
 const clients = computed(() =>
   Array.isArray(ourClient.value?.images)
@@ -106,6 +126,7 @@ const testimonialsList = ref([
 </script>
 <template>
     <GeneralLayout>
+        <SEOHead :seo="seo" :default-title="'Home'" />
         <section>
             <Slideshow :slides="slideShow" />
             <div class="lg:px-24">
@@ -137,15 +158,17 @@ const testimonialsList = ref([
                 </div>
             </div>
           <div class="p-8 bg-gray-50 rounded-lg lg:px-24 ">
-            <Heading2 class="text-center mb-8">Customer Testimonials</Heading2>
-            <div class=" grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-8 items-center">
-                <TestimonialsSection
-                    :testimonials="testimonialsList"
-                    :show-avatar="true"
-                    :show-quot="true"
-                    avatar-size="w-16 h-16 rounded-full"
-                />
-            </div>
+              <Container>
+                <Heading2 class="text-center mb-8">Customer Testimonials</Heading2>
+                <div class=" grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-8 items-center">
+                    <TestimonialsSection
+                        :testimonials="testimonialsList"
+                        :show-avatar="true"
+                        :show-quot="true"
+                        avatar-size="w-16 h-16 rounded-full"
+                    />
+                </div>
+              </Container>
           </div>
         <div class="container mx-auto px-4 py-12">
             <Heading1 class="text-center mb-10">

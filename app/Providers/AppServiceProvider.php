@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
