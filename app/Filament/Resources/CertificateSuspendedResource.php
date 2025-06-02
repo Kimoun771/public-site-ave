@@ -68,8 +68,13 @@ class CertificateSuspendedResource extends Resource
 
                 TextColumn::make('status')
                     ->label(__('certificate_suspended.status'))
+                    ->state(function ($record) {
+                        return $record->expire_date && $record->expire_date <= now()
+                            ? 'Suspend'
+                            : 'Valid';
+                    })
                     ->badge()
-                    ->color(fn ($record) => match ($record->status) {
+                    ->color(fn ($state) => match ($state) {
                         'Suspend' => 'danger',
                         'Valid' => 'success',
                         default => 'gray',

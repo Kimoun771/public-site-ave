@@ -17,10 +17,10 @@
                         {{ text }}
                     </paragraph>
                     <button
-                        class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-8 rounded-full transition duration-300"
+                        class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-8 rounded-lg transition duration-300"
                     >
                         <Link href="/contact">
-                            Contact
+                            {{ $t('button.contact')}}
                         </Link>
                     </button>
                 </div>

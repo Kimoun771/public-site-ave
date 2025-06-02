@@ -149,19 +149,20 @@ const testimonialsList = ref([
           </div>
         <div class="container mx-auto px-4 py-12">
             <Heading1 class="text-center mb-10">
-                Our Services
+                {{ $t ('button.our_services')}}
             </Heading1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:px-24">
                 <ServicesSection :services="limitedServices" />
             </div>
             <div class=" flex justify-center underline text-black py-4">
                 <Link href="/service" >
-                    View All Service
+                    {{ $t('button.view_all_services') }}
                 </Link>
             </div>
         </div>
-        <CertificationBanner title="Start Your Certification Journey" subtitle="Get certified with confidence!"
-                             text="Unlock new opportunities for your business with our trusted certification service. Take the first step toward compliance and excellence today!"/>
+        <CertificationBanner :title="$t('banner.title')"
+                             :subtitle="$t('banner.subtitle')"
+                             :text="$t('banner.text')"/>
         </section>
     </GeneralLayout>
 </template>
