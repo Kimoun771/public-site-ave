@@ -45,11 +45,16 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const limitedServices = computed(() => {
+    return Array.isArray(settingsServiceData.value)
+        ? settingsServiceData.value.slice(0, 4)
+        : [];
+});
 
 const slideShow = computed(() => {
   const rawSlides = props.settings?.home?.slide_image_des ?? [];
   return rawSlides.map(slide => ({
-    image: slide.image || '', 
+    image: slide.image || '',
     alt: slide.title || '',
     heading: slide.title || '',
     desc: slide.description || ''
@@ -104,7 +109,7 @@ const testimonialsList = ref([
         <section>
             <Slideshow :slides="slideShow" />
             <div class="lg:px-24">
-                <CompanyOverview 
+                <CompanyOverview
                     v-if="vecert"
                     :title="vecert?.title"
                     :image-src="`/uploads/`+vecert?.image"
@@ -125,7 +130,7 @@ const testimonialsList = ref([
                             {{ ourClient?.title }}
                         </Heading1>
                         <Paragraph class="text-gray-600 mt-2">
-                            {{ ourClient?.description }} 
+                            {{ ourClient?.description }}
                         </Paragraph>
                     </div>
                     <ClientCarousel :clients="clients" />
@@ -147,7 +152,7 @@ const testimonialsList = ref([
                 Our Services
             </Heading1>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:px-24">
-                <ServicesSection :services="settingsServiceData" />
+                <ServicesSection :services="limitedServices" />
             </div>
             <div class=" flex justify-center underline text-black py-4">
                 <Link href="/service" >

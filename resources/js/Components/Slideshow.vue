@@ -20,7 +20,7 @@
         {{ slides[currentSlide].heading }}
       </h1>
       <p class="text-gray-200 leading-relaxed text-base md:text-sm">
-        {{ slides[currentSlide].description }}
+        {{ slides[currentSlide].desc }}
       </p>
     </div>
 

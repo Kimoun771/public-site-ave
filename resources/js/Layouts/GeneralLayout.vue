@@ -11,23 +11,15 @@ defineProps({
     canRegister: {
         type: Boolean,
     },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
 });
 
 const menuItems = ref([
-    { label: 'Home', link: "/"},
-    { label: 'Service', link: "/service" },
-    { label: 'Inspection', link: "/inspection" },
-    { label: 'Training', link: "/training" },
-    { label: 'About', link: "/about" },
-    {label: 'Contact', link: "/contact"}
+    { label: 'menu.home', link: "/"},
+    { label: 'menu.service', link: "/service" },
+    { label: 'menu.inspection', link: "/inspection" },
+    { label: 'menu.training', link: "/training" },
+    { label: 'menu.about', link: "/about" },
+    {label: 'menu.contact', link: "/contact"}
 ]);
 </script>
 
@@ -39,7 +31,7 @@ const menuItems = ref([
                 <main class="md:mt-24">
                     <slot></slot>
                 </main>
-                <Footer :laravelVersion="laravelVersion" :phpVersion="phpVersion" :menuItems="menuItems" />
+                <Footer :menuItems="menuItems" />
             </div>
         </div>
     </div>

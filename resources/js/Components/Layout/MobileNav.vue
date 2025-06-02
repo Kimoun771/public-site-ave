@@ -27,7 +27,7 @@
                                 : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-black'
                         ]"
                     >
-                        {{ menu.label }}
+                        {{ $t(menu.label) }}
                     </Link>
                 </nav>
             </div>
