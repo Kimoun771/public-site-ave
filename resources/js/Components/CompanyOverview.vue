@@ -17,10 +17,10 @@
                 </Paragraph>
 
                 <button
-                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md transition-colors duration-300"
+                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition-colors duration-300"
                 >
                     <Link href="/about" >
-                        Find Out More
+                        {{ $t('button.find_out_more') }}
                     </Link>
                 </button>
             </div>

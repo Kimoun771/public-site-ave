@@ -20,27 +20,27 @@
                 </div>
             </div>
             <div class="flex flex-col justify-center p-6 lg:p-12 lg:col-span-3 col-span-1">
-                <Heading2 class="font-bold mb-6 lg:mb-8 text-center text-gray-800">Certificate Verification</Heading2>
+                <Heading2 class="font-bold mb-6 lg:mb-8 text-center text-gray-800">{{ $t('certificate_verification.heading') }}</Heading2>
                 <div class="space-y-6 lg:space-y-8">
                     <div>
-                        <label for="country" class="text-gray-600 text-lg lg:text-xl block mb-2">Country Name</label>
+                        <label for="country" class="text-gray-600 text-lg lg:text-xl block mb-2">{{ $t('certificate_verification.country_label') }}</label>
                         <SelectLabel v-model="country" :countries="countries" css-wrapper="w-full  py-1.5 px-4 lg:py-2 lg:px-2 " />
                     </div>
                     <div>
-                        <label for="certificate" class="text-gray-600 text-lg lg:text-xl block mb-2">Enter Certificate Number</label>
+                        <label for="certificate" class="text-gray-600 text-lg lg:text-xl block mb-2">  {{ $t('certificate_verification.certificate_label') }}</label>
                         <input
                             id="certificate"
                             v-model="certificateNumber"
                             type="text"
                             class="w-full py-3 px-4 lg:py-4 lg:px-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
-                            placeholder="Enter certificate number"
+                            :placeholder="$t('certificate_verification.certificate_placeholder')"
                         />
                     </div>
                     <Button
                         :disabled="isLoading" unstyled @click="verifyNow" :pt="{ root: { class: 'w-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center py-3 px-4 lg:py-4 lg:px-6 rounded-lg transition duration-200 text-lg lg:text-xl font-medium mt-4'} }"
                     >
                         <i :class="isLoading ? 'pi pi-spinner pi-spin text-white text-xl mr-2' : 'pi pi-search text-white text-xl mr-2'"></i>
-                        <span class="text-white">{{ isLoading ? 'Verifying...' : 'Verify Now' }}</span>
+                        <span class="text-white">{{ isLoading ? $t('certificate_verification.verifying') : $t('certificate_verification.verify_button') }}</span>
                     </Button>
                 </div>
             </div>
@@ -81,11 +81,11 @@ export default {
         async verifyNow(e) {
             e.preventDefault();
             if (!this.country) {
-                this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please select a country', life: 3000 });
+                this.toast.add({ severity: 'warn', summary: this.$t('certificate_verification.warning'), detail: this.$t('certificate_verification.select_country_warning'), life: 3000 });
                 return;
             }
             if (!this.certificateNumber) {
-                this.toast.add({ severity: 'warn', summary: 'Warning', detail: 'Please enter a certificate number', life: 3000 });
+                this.toast.add({ severity: 'warn', summary: this.$t('certificate_verification.warning'), detail: this.$t('certificate_verification.enter_certificate_warning'), life: 3000 });
                 return;
             }
             this.isLoading = true;
@@ -106,7 +106,7 @@ export default {
                 }
 
             } catch (error) {
-                this.toast.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong.', life: 3000 });
+                this.toast.add({ severity: 'error', summary: this.$t('error'), detail: this.$t('certificate_verification.general_error'), life: 3000 });
             } finally {
                 this.isLoading = false;
             }
@@ -116,7 +116,7 @@ export default {
             });
         },
         closeModal() {
-            this.showMessage = false
+            this.showMessage = false;
         },
     }
 };

@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex justify-center">
-        <Select v-model="selectedCountry" :options="countries" filter optionLabel="name" placeholder="Select a Country" :class="cssWrapper">
+        <Select v-model="selectedCountry" :options="countries" filter optionLabel="name" :placeholder="$t('certificate_verification.select_country')" :class="cssWrapper">
             <template #value="slotProps">
                 <div v-if="slotProps.value" class="flex items-center">
                     <img v-if="slotProps.value.code"  :alt="slotProps.value.name" :src="`https://flagcdn.com/w40/${slotProps.value.code.toLowerCase()}.png`" class="mr-2" style="width: 18px" />

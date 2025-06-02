@@ -21,7 +21,7 @@
             <Button
                 icon=""
                 type="button"
-                text="Read More"
+                :text="$t('button.read_more')"
                 @click="() => openModal(service)"
                 class="w-full"
             />

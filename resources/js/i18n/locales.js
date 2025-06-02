@@ -39,6 +39,18 @@ export default {
             "delete_account_password_confirmation": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
             "cancel": "Cancel"
         },
+        "banner": {
+            "title": "Start Your Certification Journey",
+            "subtitle": "Get certified with confidence!",
+            "text": "Unlock new opportunities for your business with our trusted certification service. Take the first step toward compliance and excellence today!"
+        },
+        "button": {
+            "find_out_more": "Find Out More",
+            "read_more": "Read More",
+            "view_all_services": "View All Services",
+            "our_services": "Our Services",
+            "contact": "Contact"
+        },
         "certificate": {
             "number": "Certificate Number",
             "company": "Company",
@@ -81,6 +93,20 @@ export default {
             "status": "Status",
             "report": "Report",
             "row_number": "No."
+        },
+        "certificate_verification": {
+            "heading": "Certificate Verification",
+            "select_country": "Select Country",
+            "country_label": "Country Name",
+            "certificate_label": "Enter Certificate Number",
+            "certificate_placeholder": "Enter certificate number",
+            "verify_button": "Verify Now",
+            "verifying": "Verifying...",
+            "select_country_warning": "Please select a country",
+            "enter_certificate_warning": "Please enter a certificate number",
+            "general_error": "Something went wrong.",
+            "warning": "Warning",
+            "error": "Error"
         },
         "company": {
             "company_information": "Company Information",
@@ -168,6 +194,14 @@ export default {
             "reference": "Reference: {reference}",
             "view_reservation": "View Reservation",
             "click_link": "Click on the link below to view your reservation details and make any necessary changes."
+        },
+        "menu": {
+            "home": "Home",
+            "service": "Service",
+            "inspection": "Inspection",
+            "training": "Training",
+            "about": "About",
+            "contact": "Contact"
         },
         "navigation": {
             "master_data": "Master Data"
@@ -351,6 +385,18 @@ export default {
         }
     },
     "km": {
+        "banner": {
+            "title": "ចាប់ផ្ដើមការធ្វើវិញ្ញាបនបត្រ",
+            "subtitle": "ទទួលបានវិញ្ញាបនបត្រជាមួយការទំនុកចិត្ត!",
+            "text": "បើកទូលាយឱកាសថ្មីៗសម្រាប់អាជីវកម្មរបស់អ្នកជាមួយសេវាវិញ្ញាបនបត្រដែលគេជឿទុកចិត្ត។ ចាប់ផ្ដើមជំហានដំបូងទៅរកការអនុលោមនិងភាពល្អឥតខ្ចោះថ្ងៃនេះ!"
+        },
+        "button": {
+            "find_out_more": "ស្វែងរកបន្ថែម",
+            "read_more": "អានបន្ថែម",
+            "view_all_services": "មើលសេវាកម្មទាំងអស់",
+            "our_services": "សេវាកម្មរបស់យើង",
+            "contact": "ទំនាក់ទំនង"
+        },
         "certificate": {
             "number": "លេខវិញ្ញាបនបត្រ",
             "company": "ក្រុមហ៊ុន",
@@ -394,6 +440,20 @@ export default {
             "report": "របាយការណ៍",
             "row_number": "ល.រ"
         },
+        "certificate_verification": {
+            "heading": "ការផ្ទៀងផ្ទាត់វិញ្ញាបនបត្រ",
+            "select_country": "ជ្រើសរើសប្រទេស",
+            "country_label": "ឈ្មោះប្រទេស",
+            "certificate_label": "បញ្ចូលលេខវិញ្ញាបនបត្រ",
+            "certificate_placeholder": "បញ្ចូលលេខវិញ្ញាបនបត្រ",
+            "verify_button": "ផ្ទៀងផ្ទាត់ឥឡូវនេះ",
+            "verifying": "កំពុងផ្ទៀងផ្ទាត់...",
+            "select_country_warning": "សូមជ្រើសរើសប្រទេសមួយ",
+            "enter_certificate_warning": "សូមបញ្ចូលលេខវិញ្ញាបនបត្រ",
+            "general_error": "មានបញ្ហាមួយកើតឡើង។",
+            "warning": "ព្រមាន",
+            "error": "មានបញ្ហាអ្វីមួយ"
+        },
         "company": {
             "company_information": "ព័ត៌មានក្រុមហ៊ុន",
             "company_name": "ឈ្មោះក្រុមហ៊ុន",
@@ -427,6 +487,14 @@ export default {
         "dashboard": {
             "total_companies": "ចំនួនក្រុមហ៊ុនសរុប",
             "registered_companies": "ក្រុមហ៊ុនដែលបានចុះឈ្មោះ"
+        },
+        "menu": {
+            "home": "ទំព័រដើម",
+            "service": "សេវាកម្ម",
+            "inspection": "ការត្រួតពិនិត្យ",
+            "training": "បណ្តុះបណ្តាល",
+            "about": "អំពីយើង",
+            "contact": "ទំនាក់ទំនង"
         },
         "navigation": {
             "master_data": "ទិន្នន័យមូលដ្ឋាន"
