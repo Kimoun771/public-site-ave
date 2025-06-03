@@ -49,26 +49,26 @@ class ManageHome extends SettingsPage
                 ->columns(1)
                 ->columnSpanFull()
                 ->deletable(false)
-                ->reorderable(false), 
+                ->reorderable(false),
         ]);
     }
 
     private function getVeCertSection(): Forms\Components\Section
     {
-        return Forms\Components\Section::make('VE Certification')
+        return Forms\Components\Section::make('AVE Certification')
             ->schema([
                 Forms\Components\Repeater::make('vecert')
                     ->schema([
-                        $this->getImageUploadField('image', 'VE Cert Image'),
+                        $this->getImageUploadField('image', 'AVE Image'),
                         $this->getTranslatableTextInput(
                             'title',
-                            'VE Cert Title'
+                            'AVE Title'
                         ),
                         $this->getTranslatableTextarea(
                             'description',
-                            'VE Cert Description'
+                            'AVE Description'
                         ),
-                        $this->getTranslatableTextInput('slug', 'VE Cert Slug'),
+                        $this->getTranslatableTextInput('slug', 'AVE Slug'),
                     ])
                     ->defaultItems(1)
                     ->minItems(1)
@@ -83,15 +83,15 @@ class ManageHome extends SettingsPage
 
     private function getVeCertImageDescriptionSection(): Forms\Components\Section
     {
-        return Forms\Components\Section::make('VE Certification Details')
+        return Forms\Components\Section::make('AVE Certification Details')
             ->icon('heroicon-o-document-text')
             ->schema([
                 Forms\Components\Repeater::make('vecert_image_des')
-                    ->label('VE Certification Detail Items')
+                    ->label('AVE Certification Detail Items')
                     ->schema([
                         $this->getImageUploadField(
                             'image',
-                            'VE Cert Detail Image'
+                            'AVE Detail Image'
                         ),
                         $this->getTranslatableTextInput(
                             'title',
@@ -108,7 +108,7 @@ class ManageHome extends SettingsPage
                     ->columns(1)
                     ->columnSpanFull()
                     ->deletable(false)
-                    ->reorderable(false), 
+                    ->reorderable(false),
             ])
             ->columns(1);
     }
