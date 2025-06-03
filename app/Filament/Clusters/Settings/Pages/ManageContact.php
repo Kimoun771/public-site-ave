@@ -80,7 +80,7 @@ class ManageContact extends SettingsPage
                     ->maxItems(10)
                     ->columns(1)
                     ->columnSpanFull()
-                    ->deletable(false)
+                    ->deletable(true)
                     ->reorderable(false)
                     ->addActionLabel('Add Location')
             ])

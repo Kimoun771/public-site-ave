@@ -39,7 +39,7 @@ const { services , hero } = props.settings;
         />
         <div class="container mx-auto px-2 py-8 lg:px-24">
             <Heading1 class="text-center mb-10">
-                {{ $t('home.our_services') }}
+                {{ $t('button.our_services') }}
             </Heading1>
             <div class="space-y-6 px-8">
                 <ServicesList

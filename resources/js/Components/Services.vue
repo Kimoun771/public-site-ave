@@ -32,7 +32,7 @@
             v-model="isModalOpen"
             :title="selectedService?.title"
             :des="selectedService?.description"
-            :image="selectedService?.imageUrl"
+            :image="`/uploads/${selectedService?.imageUrl}`"
         />
     </template>
 </template>
@@ -61,7 +61,7 @@ const openModal  = (service: Service) => {
 };
 
 const truncate = (text: string, max: number) => {
-    return text.length > max ? text.slice(0, max) + "..." : text;
+    return text?.length > max ? text.slice(0, max) + "..." : text;
 };
 
 const isModalOpen = ref(false);
