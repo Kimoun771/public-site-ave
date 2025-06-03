@@ -45,7 +45,7 @@ const props = defineProps({
 });
 const customCountries = ref<Country[]>(
     (props.settings.contact_info || []).map((country: BackendCountry) => {
-        const transformedCountry = {
+        return {
             id: country.name.toLowerCase(),
             name: country.name,
             phone: country.phone,
@@ -54,7 +54,6 @@ const customCountries = ref<Country[]>(
             workingHours: country.working_hour,
             mapUrl: country.map_url || ''
         };
-        return transformedCountry;
     })
 );
 const initialCountry = ref<string>(

@@ -3,9 +3,9 @@
         <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             <div class="col-span-1 flex flex-col items-center px-8">
                 <Link :href="route('home')">
-                    <LazyImage src="https://www.vecert.com/image/vecert-logo.png" alt="VE CERT Logo" class="h-16 mb-4"/>
+                    <LazyImage src="https://www.vecert.com/image/vecert-logo.png" alt="AVE Logo" class="h-16 mb-4"/>
                 </Link>
-                <Paragraph class="text-sm mb-4 text-center text-white">Copyright © 2025 AVE. All rights reserved.</Paragraph>
+                <Paragraph class="text-sm mb-4 text-center text-white">{{ $t ('footer.copyright') }}</Paragraph>
                 <div class="flex space-x-4">
                     <a href="https://instagram.com/vecert" target="_blank" class="text-white hover:text-gray-100">
                         <i class="pi pi-facebook text-xl"></i>
@@ -33,7 +33,7 @@
                             isActive(menu) ? 'text-blue-400 font-semibold' : 'text-white hover:text-gray-300'
                         ]"
                     >
-                        {{ menu.label }}
+                        {{ $t(menu.label) }}
                     </Link>
                 </nav>
             </div>
@@ -41,10 +41,10 @@
             <div class="col-span-1 sm:col-span-3 lg:col-span-3">
                 <form  @submit.prevent="submitForm" class="space-y-2 px-5">
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input v-model="form.name" type="text" placeholder="Name" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
-                        <input v-model="form.email" type="email" placeholder="Email" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
+                        <input v-model="form.name" type="text" :placeholder="$t('footer.name')" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
+                        <input v-model="form.email" type="email" :placeholder="$t('footer.email')" class="flex-1 px-3 py-2 bg-gray-100 text-black rounded" />
                     </div>
-                    <textarea v-model="form.message" placeholder="Message" class="w-full px-3 py-2 bg-gray-100 text-black rounded h-24"></textarea>
+                    <textarea v-model="form.message" :placeholder="$t('footer.message')" class="w-full px-3 py-2 bg-gray-100 text-black rounded h-24"></textarea>
                     <RecaptchaV2
                         sitekey="6Lc07KYqAAAAADiqjV51xn86JSAaMJubYTdCpWCc"
                         @widget-id="handleWidgetId"
@@ -63,7 +63,7 @@
                         }"
                     >
                         <i :class="isLoading ? 'pi pi-spinner pi-spin text-white text-xl mr-2' : 'pi pi-send text-white text-xl mr-2'"></i>
-                        <span class="text-white">Submit</span>
+                        <span class="text-white">{{ $t('footer.submit') }}</span>
                     </Button>
                 </form>
             </div>
