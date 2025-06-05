@@ -1,6 +1,5 @@
 <template>
     <footer class="bg-gray-800 text-white py-4 sm:py-8 lg:py-8" menu-items="">
-      <Container>
         <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             <div class="col-span-1 flex flex-col items-center px-8">
                 <Link :href="route('home')">
@@ -69,7 +68,6 @@
                 </form>
             </div>
         </div>
-      </Container>
     </footer>
 </template>
 
@@ -82,7 +80,6 @@ import { ref } from 'vue';
 import { RecaptchaV2 } from "vue3-recaptcha-v2";
 import Button from 'primevue/button';
 import axios from 'axios';
-import Container from '../Container.vue';
 
 interface MenuItem {
     label: string;

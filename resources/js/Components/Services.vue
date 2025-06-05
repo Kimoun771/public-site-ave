@@ -15,7 +15,7 @@
                     {{ service.title }}
                 </Heading3>
                 <Paragraph class="text-sm mb-4 line-clamp-3 text-justify">
-                    {{ truncate(service.description, 150) }}
+                    {{ truncate(service.desc, 150) }}
                 </Paragraph>
             </div>
             <Button
@@ -31,7 +31,7 @@
         <Popup
             v-model="isModalOpen"
             :title="selectedService?.title"
-            :des="selectedService?.description"
+            :des="selectedService?.desc"
             :image="`/uploads/${selectedService?.imageUrl}`"
         />
     </template>
@@ -47,7 +47,7 @@ interface Service {
     id: number;
     imageUrl: string;
     title: string;
-    description: string;
+    des: string;
 }
 
 defineProps<{

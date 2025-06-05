@@ -78,9 +78,9 @@ const seo = computed(() => props.settings.seo);
     <GeneralLayout>
         <SEOHead :seo="seo" :default-title="'Contact Us'" />
         <HeroImage
-            :background-image="`/uploads/${props.settings.contact?.hero_image}`"
+            :src="props.settings.contact?.hero_image"
             :title="props.settings.contact?.title"
-            :description="props.settings.contact?.description"
+            :desc="props.settings.contact?.description"
         />
         <div class="mb-8 py-6">
             <Heading1 class="text-center mb-8">{{ $t('contact.contact_us') }}</Heading1>

@@ -49,9 +49,9 @@ const seo = computed(() => props.settings.seo);
   <GeneralLayout>
     <SEOHead :seo="seo" :default-title="'About Us'" />
     <HeroImage
-      :background-image="`/uploads/`+props.settings.about?.hero_image"
+      :src="props.settings.about?.hero_image"
       :title="props.settings.about?.title"
-      :description="props.settings.about?.description"
+      :desc="props.settings.about?.description"
     />
     <Heading1 class="text-center mt-10">{{props.settings.about?.name}}</Heading1>
 
