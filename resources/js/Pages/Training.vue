@@ -1,72 +1,77 @@
 <script setup lang="ts">
 import GeneralLayout from '@/Layouts/GeneralLayout.vue';
-import ConsultingCard from '@/Components/ConsultingCard.vue'
+import ConsultingCard from '@/Components/ConsultingCard.vue';
 import TrainingCard from '@/Components/TrainingCard.vue';
 import Heading2 from '@/Components/Typography/Heading2.vue';
 import HeroImage from '@/Components/HeroImage.vue';
-import { defineProps, ref , computed} from 'vue';
+import SEOHead from '@/Components/SEOHead.vue';
+import { defineProps, computed } from 'vue';
 
-interface data {
+interface DataItem {
     des: string;
     image: string;
 }
 
-interface TrainingSettings {
+interface TrainingData {
     hero_image: string;
     title: string;
     description: string;
     training_title: string;
-    consulting_services_title: string
-    training_program_image_des: data[];
-    consulting_services_image_des: data[]
+    consulting_services_title: string;
+    training_program_image_des: DataItem[];
+    consulting_services_image_des: DataItem[];
 }
 
-const props = defineProps({
-    settings: {
-        type: Object as () => TrainingSettings,
-        required: true
-    },
-});
-const settingsData = ref(props.settings);
-const imageHero = ref({
-    imageUrl: `/uploads/${props.settings.hero_image}`
-});
-const TrainingItems = computed(() => {
-    if (!Array.isArray(settingsData.value.training_program_image_des)) {
-        return [];
-    }
-    
-    return settingsData.value.training_program_image_des.map(item => ({
+interface TrainingSettings {
+    training: TrainingData;
+    seo?: any;
+}
+
+const props = defineProps<{
+    settings: TrainingSettings;
+}>();
+const settingsData = computed(() => props.settings.training);
+
+const heroImageUrl = computed(() =>
+    settingsData.value.hero_image
+);
+
+const trainingItems = computed(() =>
+    settingsData.value.training_program_image_des.map(item => ({
         title: item.des,
-        image: `/uploads/${item.image}`
-    }));
-});
-const consultingServicesItems = computed(() => {
-    if (!Array.isArray(settingsData.value.consulting_services_image_des)) {
-        return [];
-    }
-    
-    return settingsData.value.consulting_services_image_des.map(item => ({
+        image: `/uploads/` + item.image
+    }))
+);
+const consultingServicesItems = computed(() =>
+    settingsData.value.consulting_services_image_des.map(item => ({
         title: item.des,
-        image: `/uploads/${item.image}`
-    }));
-});
+        image: `/uploads/` + item.image
+    }))
+);
+
+const seo = computed(() => props.settings.seo);
+
 </script>
 
 <template>
     <GeneralLayout>
+        <SEOHead :seo="seo" />
         <HeroImage
-            :backgroundImage="imageHero?.imageUrl"
-            :title="settingsData?.title"
-            :description="settingsData?.description"
+            :src="heroImageUrl"
+            :title="settingsData.title"
+            :desc="settingsData.description"
         />
         <div class="mt-5">
-            <Heading2 class="text-center mb-6">{{settingsData?.training_title}}</Heading2>
-            <TrainingCard :trainingPrograms="TrainingItems"></TrainingCard>
+            <Heading2 class="text-center mb-6">
+                {{ settingsData.training_title }}
+            </Heading2>
+            <TrainingCard :training-programs="trainingItems" />
         </div>
-        <div class="mt-5" >
-            <Heading2 class="text-center mb-6">{{settingsData?.consulting_services_title}}</Heading2>
-            <ConsultingCard :consulting-services="consultingServicesItems"></ConsultingCard>
+        <div class="mt-5">
+            <Heading2 class="text-center mb-6">
+                {{ settingsData.consulting_services_title }}
+            </Heading2>
+            <ConsultingCard :consulting-services="consultingServicesItems" />
         </div>
     </GeneralLayout>
 </template>

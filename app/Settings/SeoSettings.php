@@ -56,7 +56,7 @@ class SeoSettings extends Settings
 
                 return $settingsUrl === $requestPath;
             })->first();
-
+//            dd($pageSettings);
             if ($pageSettings) {
 
                 return [

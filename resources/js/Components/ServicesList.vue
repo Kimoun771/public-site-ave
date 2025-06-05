@@ -27,7 +27,7 @@
             v-model="isModalOpen"
             :title="selectedService?.title"
             :des="selectedService?.desc"
-            :image="selectedService?.imageUrl"
+            :image="`/uploads/${selectedService?.imageUrl}`"
         />
     </div>
 </template>

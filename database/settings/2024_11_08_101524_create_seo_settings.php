@@ -9,8 +9,8 @@ return new class extends SettingsMigration
         $pages = [
             'home' => [
                 'url' => [
-                    'en' => '/',
-                    'km' => '/km',
+                    'en' => '',
+                    'km' => 'km',
                 ],
                 'meta_title' => [
                     'en' => 'Laravel Starter',
@@ -36,8 +36,8 @@ return new class extends SettingsMigration
             ],
             'service' => [
                 'url' => [
-                    'en' => '/services',
-                    'km' => '/km/services',
+                    'en' => 'services',
+                    'km' => 'km/services',
                 ],
                 'meta_title' => [
                     'en' => 'Our Services',
@@ -63,8 +63,8 @@ return new class extends SettingsMigration
             ],
             'inspection' => [
                 'url' => [
-                    'en' => '/inspection',
-                    'km' => '/km/inspection',
+                    'en' => 'inspection',
+                    'km' => 'km/inspection',
                 ],
                 'meta_title' => [
                     'en' => 'Inspection Services',
@@ -90,8 +90,8 @@ return new class extends SettingsMigration
             ],
             'training' => [
                 'url' => [
-                    'en' => '/training',
-                    'km' => '/km/training',
+                    'en' => 'training',
+                    'km' => 'km/training',
                 ],
                 'meta_title' => [
                     'en' => 'Training Programs',
@@ -117,8 +117,8 @@ return new class extends SettingsMigration
             ],
             'about' => [
                 'url' => [
-                    'en' => '/about',
-                    'km' => '/km/about',
+                    'en' => 'about',
+                    'km' => 'km/about',
                 ],
                 'meta_title' => [
                     'en' => 'About Us',
@@ -144,8 +144,8 @@ return new class extends SettingsMigration
             ],
             'contact' => [
                 'url' => [
-                    'en' => '/contact',
-                    'km' => '/km/contact',
+                    'en' => 'contact',
+                    'km' => 'km/contact',
                 ],
                 'meta_title' => [
                     'en' => 'Contact Us',
