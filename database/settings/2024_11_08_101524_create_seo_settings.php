@@ -36,8 +36,8 @@ return new class extends SettingsMigration
             ],
             'service' => [
                 'url' => [
-                    'en' => 'services',
-                    'km' => 'km/services',
+                    'en' => 'service',
+                    'km' => 'km/service',
                 ],
                 'meta_title' => [
                     'en' => 'Our Services',
