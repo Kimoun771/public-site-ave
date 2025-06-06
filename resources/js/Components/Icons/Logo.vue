@@ -1,3 +1,3 @@
 <template>
-    <img src="https://www.vecert.com/image/vecert-logo.png" alt="AVE Logo" class="h-15">
+    <LazyImage src="/assets/images/AVE-logo.png" alt="AVE Logo" width="120" height="40" />
 </template>

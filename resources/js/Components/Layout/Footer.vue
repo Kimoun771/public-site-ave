@@ -3,7 +3,7 @@
         <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             <div class="col-span-1 flex flex-col items-center px-8">
                 <Link :href="route('home')">
-                    <LazyImage src="https://www.vecert.com/image/vecert-logo.png" alt="AVE Logo" class="h-16 mb-4"/>
+                    <Logo />
                 </Link>
                 <Paragraph class="text-sm mb-4 text-center text-white">{{ $t ('footer.copyright') }}</Paragraph>
                 <div class="flex space-x-4">
@@ -80,6 +80,7 @@ import { ref } from 'vue';
 import { RecaptchaV2 } from "vue3-recaptcha-v2";
 import Button from 'primevue/button';
 import axios from 'axios';
+import Logo from '@/Components/Icons/Logo.vue';
 
 interface MenuItem {
     label: string;
