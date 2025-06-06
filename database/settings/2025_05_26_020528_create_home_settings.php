@@ -98,6 +98,19 @@ return new class extends SettingsMigration {
                         'សេវាកម្មបញ្ជាក់ដោយវិជ្ជាជីវៈ ដើម្បីបញ្ជាក់ការអនុលោមតាមស្តង់ដារ និងបទប្បញ្ញត្តិឧស្សាហកម្ម',
                 ],
             ],
+            [
+                'image' => '/assets/images/about/jnd1.jpg',
+                'title' => [
+                    'en' => 'Certification',
+                    'km' => 'វិញ្ញាបនបត្រ',
+                ],
+                'description' => [
+                    'en' =>
+                        'We provide a platform to you to demonstrate that your products, processes, systems or services are compliant with either national or international standards and regulations or customer defined specification.',
+                    'km' =>
+                        'ពួកយើងផ្តល់ជូនឱ្យអ្នកនូវវេទិកាដើម្បីបង្ហាញថាផលិតផល, ដំណើរការ, ប្រព័ន្ធ ឬសេវាកម្មរបស់អ្នកស្ថិតក្នុងស្តង់ដារជាតិនិងអន្តរជាតិ ឬស្តង់ដារដែលអតិថិជនកំណត់។',
+                ],
+            ],
         ]);
 
         $this->migrator->add('home.our_client_image_des', [
