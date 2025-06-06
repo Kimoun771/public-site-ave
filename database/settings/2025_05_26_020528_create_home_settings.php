@@ -102,6 +102,19 @@ return new class extends SettingsMigration {
                         'វិញ្ញាបនបត្រជាសញ្ញាបង្ហាញថា ប្រព័ន្ធ ផលិតផល ឬសេវាកម្មរបស់អ្នក អនុលោមតាមស្តង់ដារជាតិ ឬអន្ដរជាតិនៃការទទួលស្គាល់។ AVE ផ្តល់សេវាវិញ្ញាបនបត្រដែលទទួលស្គាល់ជាផ្លូវការដើម្បីគាំទ្រភាពគួរឱ្យទុកចិត្ត ធ្វើឱ្យប្រសើរឡើងនូវសមិទ្ធិផល និងបើកឱកាសចូលដល់ទីផ្សារជាសកល។វិស័យសំខាន់ៗ៖ ស្តង់ដារ ISO វិញ្ញាបនបត្រផលិតផល វិញ្ញាបនបត្រប្រព័ន្ធគ្រប់គ្រង។',
                 ],
             ],
+            [
+                'image' => '/assets/images/about/jnd1.jpg',
+                'title' => [
+                    'en' => 'Certification',
+                    'km' => 'វិញ្ញាបនបត្រ',
+                ],
+                'description' => [
+                    'en' =>
+                        'We provide a platform to you to demonstrate that your products, processes, systems or services are compliant with either national or international standards and regulations or customer defined specification.',
+                    'km' =>
+                        'ពួកយើងផ្តល់ជូនឱ្យអ្នកនូវវេទិកាដើម្បីបង្ហាញថាផលិតផល, ដំណើរការ, ប្រព័ន្ធ ឬសេវាកម្មរបស់អ្នកស្ថិតក្នុងស្តង់ដារជាតិនិងអន្តរជាតិ ឬស្តង់ដារដែលអតិថិជនកំណត់។',
+                ],
+            ],
         ]);
 
         $this->migrator->add('home.our_client_image_des', [
