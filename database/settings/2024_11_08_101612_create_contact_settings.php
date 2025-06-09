@@ -14,31 +14,30 @@ return new class extends SettingsMigration {
         );
 
         $this->migrator->add('contact.title', [
-            'en' => 'Ensuring Quality & Compliance Through Expert Inspections!',
-            'km' =>
-                'ការធានាគុណភាព និងការគោរពតាមបទបញ្ជា តាមរយៈការត្រួតពិនិត្យដោយអ្នកជំនាញ!',
+            'en' => 'Get In Touch With Us for Expert Certification Services!',
+            'km' => 'ទំនាក់ទំនងមកយើងខ្ញុំសម្រាប់សេវាវិញ្ញាបនបត្រជំនាញ!',
         ]);
 
         $this->migrator->add('contact.description', [
             'en' =>
-                'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.',
+                'Contact us for certification verification, quality inspections, and expert consultancy in your industry.',
             'km' =>
-                'យើងផ្តល់សេវាកម្មត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ដោយឯករាជ្យ ដើម្បីជួយអាជីវកម្មឱ្យបំពេញតាមស្តង់ដារឧស្សាហកម្ម និងលក្ខខណ្ឌផ្នែកនិតិវិធី។',
+                'ទំនាក់ទំនងយើងសម្រាប់ការផ្ទៀងផ្ទាត់វិញ្ញាបនបត្រសេវាកម្ម, ការត្រួតពិនិត្យគុណភាព និងការប្រឹក្សាផ្នែកជំនាញក្នុងឧស្សាហកម្មរបស់អ្នក។',
         ]);
 
         $this->migrator->add('contact.contact_info', [
             [
                 'name' => [
-                    'en' => 'Cambodia',
-                    'km' => 'កម្ពុជា',
+                    'en' => 'Malaysia',
+                    'km' => 'ម៉ាឡេសុី',
                 ],
                 'phone' => '+855 23 456 789',
                 'email' => 'info-kh@mycompany.com',
                 'address' => [
                     'en' =>
-                        'No 185D St.K4B Phumi, Trung Morn St, Phnom Penh, Cambodia',
+                        'Unit 67, 2nd Floor 25, Plaza Danau 2, Jalan 5/109 F, Taman Danau Desa, 58100 Kuala Lumpur, Wilayah Persekutuan, Malaysia',
                     'km' =>
-                        'លេខ ១៨៥ ផ្លូវ K4B ភូមិ ផ្លូវ ទ្រុង មន ភ្នំពេញ កម្ពុជា',
+                        'ឯកតា ៦៧, ជាន់ទី ២, ផ្លាសា ដាណៅ ២, ផ្លូវ ៥/១០៩ អេហ្វ, តាម៉ាន់ ដាណៅ ដេសា, ៥៨១០០ កូឡាលាំពូរ, វិល័យបឺសឺកូតូអាន,ម៉ាឡេស៊ី',
                 ],
                 'working_hour' => [
                     'en' => 'Monday To Friday 08:00AM To 05:00PM',
@@ -65,8 +64,8 @@ return new class extends SettingsMigration {
             ],
             [
                 'name' => [
-                    'en' => 'Malaysia',
-                    'km' => 'ម៉ាឡេស៊ី',
+                    'en' => 'Cambodia',
+                    'km' => 'កម្ពុជា',
                 ],
                 'phone' => '+603 2145 6789',
                 'email' => 'info-my@mycompany.com',

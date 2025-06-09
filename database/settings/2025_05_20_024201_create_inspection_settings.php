@@ -13,15 +13,12 @@ return new class extends SettingsMigration {
             '/assets/images/about/banner.jpg'
         );
         $this->migrator->add('inspection.title', [
-            'en' => 'Ensuring Quality & Compliance Through Expert Inspections!',
-            'km' =>
-                'ការធានាគុណភាព និងការគោរពតាមបទបញ្ជា តាមរយៈការត្រួតពិនិត្យដោយអ្នកជំនាញ!',
+            'en' => 'Achieve Precision and Compliance with Expert Inspection Services!',
+            'km' => 'សម្រេចបាននូវភាពត្រឹមត្រូវ និងការអនុលោមជាមួយសេវាកម្មត្រួតពិនិត្យជំនាញ!',
         ]);
         $this->migrator->add('inspection.description', [
-            'en' =>
-                'We provide independent inspection and verification services to help businesses meet industry standards and regulatory requirements.',
-            'km' =>
-                'យើងផ្តល់សេវាកម្មត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ដោយឯករាជ្យ ដើម្បីជួយអាជីវកម្មឱ្យបំពេញតាមស្តង់ដារឧស្សាហកម្ម និងលក្ខខណ្ឌផ្នែកនិតិវិធី។',
+            'en' => 'Our independent inspection and verification services help organizations ensure compliance with global standards, improving product quality and operational efficiency.',
+            'km' => 'សេវាកម្មត្រួតពិនិត្យ និងផ្ទៀងផ្ទាត់ដោយឯករាជ្យរបស់យើងជួយអង្គការធានាថាអនុលោមតាមស្តង់ដារអន្ដរជាតិ បង្កើនគុណភាពផលិតផល និងប្រសិទ្ធភាពប្រតិបត្តិការ។',
         ]);
         $this->migrator->add('inspection.assurance_and_compliance_title', [
             'en' => 'Quality Assurance & Compliance',

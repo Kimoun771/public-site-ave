@@ -45,7 +45,9 @@ class ScopeResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('company.name_scope'))
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50)
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('company.description_scope'))
                     ->limit(50)
