@@ -147,7 +147,10 @@ class CertificateResource extends Resource
                 TextColumn::make('certificate_number')
                     ->label(__('certificate.number'))
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->copyMessage('Copied to clipboard!')
+                    ->copyMessageDuration(1500),
 
                 TextColumn::make('company.name')
                     ->label(__('certificate.company'))
