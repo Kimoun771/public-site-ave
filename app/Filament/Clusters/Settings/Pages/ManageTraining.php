@@ -12,12 +12,12 @@ use Mvenghaus\FilamentPluginTranslatableInline\Forms\Components\TranslatableCont
 
 class ManageTraining extends SettingsPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
 
     protected static string $settings = TrainingSettings::class;
 
     protected static ?string $cluster = Settings::class;
-
+    protected static ?int $navigationSort = 4;
     public function form(Form $form): Form
     {
         return $form->schema([

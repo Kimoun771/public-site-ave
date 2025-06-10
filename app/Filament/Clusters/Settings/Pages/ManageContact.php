@@ -19,6 +19,7 @@ class ManageContact extends SettingsPage
     protected static ?string $cluster = Settings::class;
 
     protected static ?string $title = 'Contact Settings';
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $navigationLabel = 'Manage Contact';
 

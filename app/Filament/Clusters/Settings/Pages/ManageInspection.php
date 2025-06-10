@@ -12,11 +12,12 @@ use Mvenghaus\FilamentPluginTranslatableInline\Forms\Components\TranslatableCont
 
 class ManageInspection extends SettingsPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+    protected static ?string $navigationIcon = 'heroicon-o-eye';
 
     protected static string $settings = InspectionSettings::class;
 
     protected static ?string $cluster = Settings::class;
+    protected static ?int $navigationSort = 3;
 
     public function form(Form $form): Form
     {

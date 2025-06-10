@@ -30,6 +30,6 @@ class UserSeeder extends Seeder
         $admin->assignRole($adminRole);
 
         // create 10 users
-        User::factory(10)->create();
+//        User::factory(10)->create();
     }
 }
