@@ -9,6 +9,7 @@
         $seo = $page['props']['settings']['seo'] ?? [];
         $title = !empty($seo['title']) ? $seo['title'] : config('app.name', 'Default Title');
         $isDebug = config('app.debug', false);
+        $currentUrl = request() ? request()->url() : config('app.url');
     @endphp
 
     <title inertia>{{ $title }}</title>
@@ -65,10 +66,10 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="/AVE-logo.png" sizes="110x96" />
+    <link rel="icon" type="image/svg+xml" href="/AVE-logo.png" />
+    <link rel="shortcut icon" href="/AVE-logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/AVE-logo.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
     @include('feed::links')
