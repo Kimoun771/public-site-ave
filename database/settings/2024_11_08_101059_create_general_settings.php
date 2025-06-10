@@ -29,7 +29,7 @@ return new class extends SettingsMigration
         $this->migrator->add('general.site_address', '123 Street, City, Country');
         $this->migrator->add('general.site_logo_light', 'logo-light.png');
         $this->migrator->add('general.site_logo_dark', 'logo-dark.png');
-        $this->migrator->add('general.site_favicon', 'favicon.png');
+        $this->migrator->add('general.site_favicon', 'AVE-logo.png');
         $this->migrator->add('general.site_google_analytics', '');
         $this->migrator->add('general.site_google_recaptcha', '');
         $this->migrator->add('general.site_google_maps', '');
