@@ -20,6 +20,7 @@ class ManageService extends SettingsPage
     protected static string $settings = ServiceSetting::class;
 
     protected static ?string $cluster = Settings::class;
+    protected static ?int $navigationSort = 2;
 
 
     public function form(Form $form): Form

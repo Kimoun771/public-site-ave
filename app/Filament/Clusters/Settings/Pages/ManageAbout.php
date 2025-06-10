@@ -16,6 +16,7 @@ class ManageAbout extends SettingsPage
     protected static string $settings = AboutSettings::class;
     protected static ?string $cluster = Settings::class;
     protected static ?string $title = 'About Settings';
+    protected static ?int $navigationSort = 5;
     protected static ?string $navigationLabel = 'Manage About';
 
     public function form(Form $form): Form

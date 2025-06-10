@@ -22,6 +22,7 @@ class ManageSeo extends SettingsPage
     protected static string $settings = SeoSettings::class;
 
     protected static ?string $cluster = Settings::class;
+    protected static ?int $navigationSort = 7;
 
     public function form(Form $form): Form
     {
